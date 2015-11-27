@@ -29,7 +29,7 @@ var Manage = function () {
                         	}
 
                             var content = '<a   href="#" class="btn " >Edit</a>'
-                            			+ _statusAction;
+                            			+ _statusAction
                                         + '<a onclick="alert('+user.id+',\' Are you sure you want to REMOVE user '+user.email+' ? \', \'deleteUser\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>'
                                         ;
                             return content;
