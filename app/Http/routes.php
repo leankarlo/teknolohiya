@@ -55,6 +55,19 @@
 			    	return view('canvas/users/manage');
 				});
 
+				Route::get('/edit&id={id}', function () {
+					return view('canvas/users/edit');
+				});
+
+				Route::get('/get&id={id}',
+				array('uses'=>'Canvas\UserController@getUser'));
+
+				Route::post('/update',
+				array('uses'=>'Canvas\UserController@update'));
+
+				Route::post('/changepassword',
+				array('uses'=>'Auth\PasswordController@update'));
+
 				Route::post('/insert', 'Canvas\UserController@create');
 
 				Route::get('/show', 'Canvas\UserController@showAll');
@@ -68,11 +81,10 @@
 				Route::get('/activate&id={id}',
 				array('uses'=>'Canvas\UserController@activate'));
 
-				// Route::get('/validate?email={email}',
-				// array('uses'=>'Canvas\UserController@validateEmail'));
-
 				Route::post('/validate/email',
 				array('uses'=>'Canvas\UserController@validateEmail'));
+
+				Route::post('/validate/password', 'Auth\PasswordController@validatePassword');
 				
 			});
 		/** END User Module **/
@@ -97,6 +109,38 @@
 
 			});
 		/** END Image Module **/
+
+		/** Article Module **/
+			Route::group(array('prefix'=>'articles'), function(){
+				
+				Route::get('/', function () {
+			    	return view('canvas/articles/myarticles');
+				});
+
+				Route::get('/manage', function () {
+			    	return view('canvas/articles/manage');
+				});
+
+				Route::get('/new', function () {
+			    	return view('canvas/articles/new');
+				});
+
+				Route::get('/show&id={id}', function () {
+			    	return view('canvas/articles/show');
+				});
+	
+				Route::post('/update', 'Canvas\ImageController@update');
+
+				Route::get('/showall', 'Canvas\ImageController@showAll');
+
+				Route::get('/publish&id={id}',
+				array('uses'=>'Canvas\ImageController@publish'));
+
+				Route::get('/unpublish&id={id}',
+				array('uses'=>'Canvas\ImageController@unpublish'));
+
+			});
+		/** END Article Module **/
 
 	});
 	/* END MODULES ROUTES */

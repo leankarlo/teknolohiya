@@ -1,7 +1,7 @@
 @extends('canvas.layouts.dashboard.mainlayout')
 
 @section('title')
-	<title>{{ Config::get('app.name') }} | create user</title>
+	<title>{{ Config::get('app.name') }} | Article</title>
 @stop
 
 @section('head')
@@ -19,7 +19,7 @@
 			<div class="portlet light">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="icon-user"></i>User Create Form
+						<i class="icon-user"></i>Article Edit
 					</div>
 				</div>
 				<div class="portlet-body form">

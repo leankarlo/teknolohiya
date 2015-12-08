@@ -1,7 +1,7 @@
 @extends('canvas.layouts.dashboard.mainlayout')
 
 @section('title')
-	<title>{{ Config::get('app.name') }} | create user</title>
+	<title>{{ Config::get('app.name') }} | Edit User</title>
 @stop
 
 @section('head')
@@ -19,52 +19,34 @@
 			<div class="portlet light">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="icon-user"></i>User Create Form
+						<i class="icon-user"></i>User Update Form
 					</div>
 				</div>
 				<div class="portlet-body form">
-					<?php 
-					$result = Session::get('error');
-					?>
-					@if($result == 'Failed')
-						<div class="alert alert-danger ">
-							<button class="close" data-close="alert"></button>
-							<span>
-							{{ Session::get('message') }}</span>
-						</div>
-					@endif
-					{!! Form::open(array('action' => 'Canvas\UserController@create' ,'class'=>'form-horizontal form_create_user', 'id' => 'form_create_user', 'method'=>'post','files'=> 'true')) !!}
-
+					{!! Form::open(array('action' => 'Canvas\UserController@update' ,'class'=>'form-horizontal form_edit_user', 'id' => 'form_edit_user', 'method'=>'post','files'=> 'true')) !!}
+						<input type="hidden" class="form-control" name="id" id="id">
 						<div class="form-body">
 							{{-- Email --}}
 							<div class="form-group form-md-line-input">
 								<label class="col-md-3 control-label">Email Address</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="email" id="email" placeholder="Enter text">
+									<input type="text" class="form-control email" name="email" id="email" placeholder="Enter text">
 								</div>
 							</div>
 
 							{{-- password --}}
-							<div class="form-group form-md-line-input">
+							{{-- <div class="form-group form-md-line-input">
 								<label class="col-md-3 control-label">Password</label>
 								<div class="col-md-6">
 									<input type="password" class="form-control" name="password" id="password" placeholder="Enter text">
 								</div>
-							</div>
-
-							{{-- confirm password --}}
-							<div class="form-group form-md-line-input">
-								<label class="col-md-3 control-label">Confirm Password</label>
-								<div class="col-md-6">
-									<input type="password" class="form-control" name="confirm_password" placeholder="Enter text">
-								</div>
-							</div>
+							</div> --}}
 
 							{{-- access type --}}
 							<div class="form-group form-md-line-input">
 								<label class="col-md-3 control-label">Access Type</label>
 								<div class="col-md-6">
-									<select class="form-control select2me" name="accessType" id="accessType">
+									<select class="form-control accessType" name="accessType" id="accessType">
 										<option value="">Select...</option>
 										<option value="0">Super Admin</option>
 										<option value="1">Manager</option>
@@ -77,7 +59,7 @@
 							<div class="form-group form-md-line-input">
 								<label class="col-md-3 control-label">User Position</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="positionTitle" placeholder="Enter text">
+									<input type="text" class="form-control positionTitle" name="positionTitle" id="positionTitle" placeholder="Enter text">
 								</div>
 							</div>
 
@@ -92,7 +74,7 @@
 						<div class="form-actions">
 							<div class="row">
 								<div class="col-md-offset-3 col-md-9">
-									<button type="submit" class="btn green">Add</button>
+									<button type="submit" class="btn green">Save</button>
 									<a class=" btn default" href="{{ URL::to('/canvas/users/management') }}">Back</a>
 								</div>
 							</div>
@@ -160,11 +142,12 @@
 	<script type="text/javascript" src="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 	<script src="{{ asset('packages/jquery-validation/js/jquery.validate.js') }}" type="text/javascript"></script>
 
-	<script src="{{ asset('js/admin/pages/users/create.js')}}"></script>
+	<script src="{{ asset('js/admin/pages/users/edit.js')}}"></script>
 	<script>
 	jQuery(document).ready(function() {    
-	   Images.initImages(); 
-	   Images.init();
+	   User.initImages(); 
+	   User.initUser();
+	   User.init();
 	});
 	</script>
 

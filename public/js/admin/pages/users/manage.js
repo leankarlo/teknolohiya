@@ -18,7 +18,17 @@ var Manage = function () {
                     },
                     { "data": "email" },
                     { "data": "user_position" },
-                    { "data": "isActive" },
+                    {
+                        sortable: true,
+                        "render": function ( data, type, user, meta ) {
+                            if(user.isActive == 0){
+                                return '<a class="btn btn-warning" >Inactivate</a>';
+                            }
+                            else{
+                                return '<a class="btn btn-success" >Active</a>';
+                            }
+                        }
+                    },
                     {
                         sortable: false,
                         "render": function ( data, type, user, meta ) {
@@ -28,13 +38,13 @@ var Manage = function () {
                         		_statusAction = '<a onclick="alert('+user.id+',\' Are you sure you want to ACTIVATE user '+user.email+' ? \', \'activateUser\' )" data-toggle="modal" href="#messageAlert" class="btn btn-success" >Activate</a>'
                         	}
 
-                            var content = '<a   href="#" class="btn " >Edit</a>'
+                            var content = '<a   href="/canvas/users/edit&id='+user.id+'" class="btn " >Edit</a>'
                             			+ _statusAction
                                         + '<a onclick="alert('+user.id+',\' Are you sure you want to REMOVE user '+user.email+' ? \', \'deleteUser\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>'
                                         ;
                             return content;
                         }
-                    },
+                    }
                 ]
             } );
     }
@@ -50,6 +60,10 @@ var Manage = function () {
 
 $(document).ready(function() {
 
+    // actions
+    
+
+    // functions
 	window.deleteUser = function($id){
 		var url = '../../../../../canvas/users/delete&id='+$id
         $.ajax({

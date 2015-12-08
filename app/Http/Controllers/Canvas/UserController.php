@@ -54,6 +54,34 @@ class UserController extends Controller
         return Redirect::to('canvas/users/management');
     }
 
+    protected function getUser($id){
+        $user = User::with(['image'])->find($id);
+        return Response::json(array('result'=>'true', 'data'=>$user));
+    }
+
+    protected function update(Request $request)
+    {
+        try{
+            // INITIALIZATION
+            $input = $request->all();
+    
+            // CREATE USER
+            $user = User::find($input['id']);
+            $user->email = $input['email'];
+            $user->user_access = $input['accessType'];
+            $user->user_position = $input['positionTitle'];
+            if(isset($input['image'])){
+                $user->image_id =   $input['image'];
+            }
+            $user->save();
+    
+            return Response::json(array('result'=>'true', 'message'=>'Succefully save changes'));
+        }catch(Exception $e){
+            return Response::json(array('result'=>'false', $e));
+        }
+        
+    }
+
     protected function activate($id)
     {
         try{
