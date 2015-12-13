@@ -74,7 +74,7 @@
 							<div class="row">
 								<div class="col-md-offset-3 col-md-9">
 									<button type="submit" class="btn green">Save</button>
-									<a class=" btn default" href="{{ URL::to('/canvas/articles/management') }}">Back</a>
+									<a class=" btn default" href="{{ URL::to('/canvas/articles/manage') }}">Back</a>
 								</div>
 							</div>
 						</div>

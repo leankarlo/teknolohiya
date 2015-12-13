@@ -161,6 +161,47 @@
 			});
 		/** END Article Module **/
 
+		/** Project Module **/
+			Route::group(array('prefix'=>'projects'), function(){
+
+				Route::get('/manage', function () {
+			    	return view('canvas/projects/manage');
+				});
+
+				Route::get('/new', function () {
+			    	return view('canvas/projects/new');
+				});
+
+				Route::get('/show&id={id}', function () {
+			    	return view('canvas/projects/show');
+				});
+
+				Route::get('/edit&id={id}', function () {
+					return view('canvas/projects/edit');
+				});
+	
+				Route::post('/create', 'Canvas\ProjectController@create');
+
+				Route::post('/update', 'Canvas\ProjectController@update');
+
+				Route::get('/delete&id={id}',
+				array('uses'=>'Canvas\ProjectController@delete'));
+
+				Route::get('/unpublish&id={id}',
+				array('uses'=>'Canvas\ProjectController@deActivate'));
+
+				Route::get('/publish&id={id}',
+				array('uses'=>'Canvas\ProjectController@activate'));
+
+				Route::get('/types/showall', 'Canvas\ProjectController@getProjectTypes');
+
+				Route::get('/getAllProjects','Canvas\ProjectController@getAllProjects');
+
+				Route::get('/get&id={id}','Canvas\ProjectController@getProject');
+
+			});
+		/** END Project Module **/
+
 	});
 	/* END MODULES ROUTES */
 

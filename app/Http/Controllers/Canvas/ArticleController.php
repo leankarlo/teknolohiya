@@ -72,9 +72,8 @@ class ArticleController extends Controller
     }
 
     protected function update(Request $request){
-        // INITIALIZATION
-        $input = $request->all();
         try{
+            $input = $request->all();
 
             $article = Article::find($input['id']);
             $article->title = $input['title'];
@@ -86,7 +85,7 @@ class ArticleController extends Controller
             $articleTag->article_types_id = $input['articleType'];
             $articleTag->save();
 
-            return Response::json(array('result'=>'true', 'message'=>'Article Succesfully SAVED!!'));
+            return Response::json(array('result'=>'true', 'message'=>$input['articleTagID']));
 
         }catch(Exception $e){
             return Response::json(array('result' => 'false', 'message' => $e ));

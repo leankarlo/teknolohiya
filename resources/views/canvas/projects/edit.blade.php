@@ -1,7 +1,7 @@
 @extends('canvas.layouts.dashboard.mainlayout')
 
 @section('title')
-	<title>{{ Config::get('app.name') }} | Article</title>
+	<title>{{ Config::get('app.name') }} | Project</title>
 @stop
 
 @section('head')
@@ -19,12 +19,12 @@
 			<div class="portlet light">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="icon-notebook"></i>Article Edit
+						<i class="icon-notebook"></i>Project Edit
 					</div>
 				</div>
 				<div class="portlet-body form">
-					{!! Form::open(array('action' => 'Canvas\ArticleController@update' ,'class'=>'form-horizontal form_article', 'id' => 'form_article', 'method'=>'post','files'=> 'true')) !!}
-						<input type="hidden" class="form-control" name="articleTagID" id="articleTagID" >
+					{!! Form::open(array('action' => 'Canvas\ProjectController@update' ,'class'=>'form-horizontal form_project', 'id' => 'form_project', 'method'=>'post','files'=> 'true')) !!}
+						<input type="hidden" class="form-control" name="projectTagID" id="projectTagID" >
 						<input type="hidden" class="form-control" name="id" id="id" >
 						<div class="form-body">
 							{{-- Title --}}
@@ -37,9 +37,9 @@
 
 							{{-- Article Type --}}
 							<div class="form-group form-md-line-input">
-								<label class="col-md-3 control-label">Article Type</label>
+								<label class="col-md-3 control-label">Project Type</label>
 								<div class="col-md-6">
-									<select class="form-control articleType" name="articleType" id="articleType">
+									<select class="form-control projectType" name="projectType" id="projectType">
 										
 									</select>
 								</div>
@@ -47,7 +47,7 @@
 
 							{{-- Article Content --}}
 							<div class="form-group form-md-line-input ">
-								<label class="col-md-3 control-label">Article Content</label>
+								<label class="col-md-3 control-label">Project Content</label>
 								<div class="col-md-9">
 									<textarea class="form-control" name="content" id="content" rows="6"></textarea>
 								</div>
@@ -65,7 +65,7 @@
 							<div class="row">
 								<div class="col-md-offset-3 col-md-9">
 									<button type="submit" class="btn green">Save</button>
-									<a class=" btn default" href="{{ URL::to('/canvas/articles/manage') }}">Back</a>
+									<a class=" btn default" href="{{ URL::to('/canvas/projects/manage') }}">Back</a>
 								</div>
 							</div>
 						</div>
@@ -134,13 +134,13 @@
 	<!-- <script src="http://ckeditor.com/apps/ckeditor/4.0/ckeditor.js?mg22k4"></script> -->
 	<script type="text/javascript" src="{{ asset('packages/ckeditor/ckeditor.js')}}"></script>
 
-	<script src="{{ asset('js/admin/pages/articles/edit.js')}}"></script>
+	<script src="{{ asset('js/admin/pages/projects/edit.js')}}"></script>
 	<script>
 	jQuery(document).ready(function() {    
-	   Article.initImages(); 
-	   Article.initArticleTypes();
-	   Article.initArticle();
-	   Article.init();
+	   Project.initImages(); 
+	   Project.initProjectTypes();
+	   Project.initProject();
+	   Project.init();
 	});
 	</script>
 

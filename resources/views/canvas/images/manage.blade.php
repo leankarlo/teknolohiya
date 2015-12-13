@@ -1,7 +1,7 @@
 @extends('canvas.layouts.dashboard.mainlayout')
 
 @section('title')
-	<title>{{ Config::get('app.name') }} | create user</title>
+	<title>{{ Config::get('app.name') }} | Manage Images</title>
 @stop
 
 @section('head')

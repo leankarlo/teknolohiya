@@ -1,8 +1,8 @@
-var Articles = function () {
+var Project = function () {
 
-    var handleArticleList = function() {
-        $('#ArticlesTable').DataTable( {
-                "ajax": "../../../../../canvas/articles/getall",
+    var handleProjectList = function() {
+        $('#ProjectsTable').DataTable( {
+                "ajax": "../../../../../canvas/projects/getAllProjects",
                 "columns": [
                     { "data": "title" },
                     {
@@ -16,19 +16,19 @@ var Articles = function () {
                             }
                         }
                     },
-                    { "data": "author.email" },
                     { "data": "updated_at" },
                     {
                         sortable: false,
-                        "render": function ( data, type, article, meta ) {
-                            var _statusAction = '<a onclick="alert('+article.id+',\' Are you sure you want to UNPUBLISHED this ('+article.title+') ? \', \'deactivateArticle\' )" data-toggle="modal" href="#messageAlert" class="btn btn-warning deleteBtn" >Unpublish</a>';
+                        "render": function ( data, type, project, meta ) {
+                            var _statusAction = '<a onclick="alert('+project.id+',\' Are you sure you want to UNPUBLISHED this ('+project.title+') ? \', \'deactivateProject\' )" data-toggle="modal" href="#messageAlert" class="btn btn-warning deleteBtn" >Unpublish</a>';
 
-                            if(article.isPublished == 0){
-                                _statusAction = '<a onclick="alert('+article.id+',\' Are you sure you want to PUBLISH this ('+article.title+') ? \', \'activateArticle\' )" data-toggle="modal" href="#messageAlert" class="btn btn-success" >Publish</a>'
+                            if(project.isPublished == 0){
+                                _statusAction = '<a onclick="alert('+project.id+',\' Are you sure you want to PUBLISH this ('+project.title+') ? \', \'activateProject\' )" data-toggle="modal" href="#messageAlert" class="btn btn-success" >Publish</a>'
                             }
 
-                            var content = _statusAction
-                                        + '<a onclick="alert('+article.id+',\' Are you sure you want to REMOVE article ( '+article.title+' ) ? \', \'deleteArticle\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>'
+                            var content = '<a   href="/canvas/projects/edit&id='+project.id+'" class="btn " >Edit</a>'
+                                        + _statusAction
+                                        + '<a onclick="alert('+project.id+',\' Are you sure you want to REMOVE article ( '+project.title+' ) ? \', \'deleteProject\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>'
                                         ;
                             return content;
                         }
@@ -40,7 +40,7 @@ var Articles = function () {
     return {
 
         init: function() {
-            handleArticleList();
+            handleProjectList();
         }
 
     };
@@ -52,31 +52,8 @@ $(document).ready(function() {
     
 
     // functions
-    window.deleteArticle = function($id){
-        var url = '../../../../../canvas/articles/delete&id='+$id
-        $.ajax({
-            url: url,
-            async: false,
-            type: "get",
-            success: function (data) {
-                if(data.result == 'true'){
-                    toastr.success('Succesfull', data.result);
-                }
-                else{
-                    toastr.error('Succesfull', data.result);
-                }
-                
-            },
-            error: function () {
-                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
-            }
-        });
-
-        $('#ArticlesTable').DataTable().ajax.reload();
-    }
-
-    window.deactivateArticle = function($id){
-        var url = '../../../../../canvas/articles/unpublish&id='+$id
+    window.deleteProject = function($id){
+        var url = '../../../../../canvas/projects/delete&id='+$id
         $.ajax({
             url: url,
             async: false,
@@ -95,11 +72,11 @@ $(document).ready(function() {
             }
         });
 
-        $('#ArticlesTable').DataTable().ajax.reload();
+        $('#ProjectsTable').DataTable().ajax.reload();
     }
 
-    window.activateArticle = function($id){
-        var url = '../../../../../canvas/articles/publish&id='+$id
+    window.deactivateProject = function($id){
+        var url = '../../../../../canvas/projects/unpublish&id='+$id
         $.ajax({
             url: url,
             async: false,
@@ -118,7 +95,30 @@ $(document).ready(function() {
             }
         });
 
-        $('#ArticlesTable').DataTable().ajax.reload();
+        $('#ProjectsTable').DataTable().ajax.reload();
+    }
+
+    window.activateProject = function($id){
+        var url = '../../../../../canvas/projects/publish&id='+$id
+        $.ajax({
+            url: url,
+            async: false,
+            type: "get",
+            success: function (data) {
+                if(data.result == 'true'){
+                    toastr.success(data.message, data.result);
+                }
+                else{
+                    toastr.error(data.message, data.result);
+                }
+                
+            },
+            error: function () {
+                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+            }
+        });
+
+        $('#ProjectsTable').DataTable().ajax.reload();
     }
 
 

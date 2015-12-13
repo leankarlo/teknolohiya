@@ -1,8 +1,8 @@
-var Article = function () {
+var Project = function () {
 
-    var handleArticleForm = function() {
+    var handleProjectForm = function() {
 
-        $('.form_article').validate({
+        $('.form_project').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
@@ -11,16 +11,17 @@ var Article = function () {
                 title: {
                     required: true
                 },
-                articleType: {
+                projectType: {
                     required: true
                 }
             },
 
             messages: {
                 title: {
-                    required: "Title is required."
+                    required: "Title is required.",
+                    remote: "Title already in use!"
                 },
-                articleType: {
+                projectType: {
                     required: "Field is required."
                 }
             },
@@ -40,7 +41,7 @@ var Article = function () {
             },
 
             submitHandler: function(form) {
-                $('.form_article').submit(function( event ) {
+                $('.form_project').submit(function( event ) {
                     var postData = $(this).serializeArray();
                     var formURL = $(this).attr("action");
                     $.ajax({
@@ -50,7 +51,7 @@ var Article = function () {
                         success:function(data, textStatus, jqXHR) 
                         {
                             toastr.clear();
-                            toastr.success('Succefull',data.message);
+                            toastr.success('Succefull','Changes has been saved');
                         },
                         error: function(jqXHR, textStatus, errorThrown) 
                         {
@@ -58,16 +59,16 @@ var Article = function () {
                             toastr.error('Failed',textStatus);
                         }
                     });
-                    event.preventDefault();
+                    // event.preventDefault();
                     return false;
                 });
             }
         });
 
-        $('.form_article input').keypress(function(e) {
+        $('.form_project input').keypress(function(e) {
             if (e.which == 13) {
-                if ($('.form_article').validate().form()) {
-                    $('.form_article').submit(function() {
+                if ($('.form_project').validate().form()) {
+                    $('.form_project').submit(function() {
                      var postData = $(this).serializeArray();
                      var formURL = $(this).attr("action");
                      $.ajax({
@@ -77,7 +78,7 @@ var Article = function () {
                          success:function(data, textStatus, jqXHR) 
                         {
                             toastr.clear()
-                            toastr.success('Succefull','Changes has been saved');
+                            toastr.success('Succefull',data.message);
                         },
                         error: function(jqXHR, textStatus, errorThrown) 
                         {
@@ -96,19 +97,19 @@ var Article = function () {
     return {
 
         init: function() {
-            handleArticleForm();
+            handleProjectForm();
         },
 
-        initArticle: function (els) {
+        initProject: function (els) {
             var id = ReturnParam('id');
             /* Send the data */
             $.ajax({
-                url:"../../../../../canvas/articles/get&id="+id,
+                url:"../../../../../canvas/projects/get&id="+id,
                 async: true,
                 type: "get",
                 success: function (json) {
                     $('#title').val(json.data.title);
-                    $('#articleTagID').val(json.data.tags.id);
+                    $('#projectTagID').val(json.data.tags.id);
                     $('#id').val(json.data.id);
 
                     CKEDITOR.replace( 'content', {
@@ -121,7 +122,7 @@ var Article = function () {
                         this.checkDirty();  // true
                     });
 
-                    $('.articleType option[value="'+json.data.tags.article_types_id+'"]').prop('selected', true);
+                    $('.projectType option[value="'+json.data.tags.project_types_id+'"]').prop('selected', true);
                     if(json.data.featured_image.id != null){
                         var url = json.data.featured_image.url;
                         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
@@ -163,9 +164,9 @@ var Article = function () {
             } );
         },
 
-        initArticleTypes: function (els){
+        initProjectTypes: function (els){
 
-            var url = '../../../../../canvas/articles/types/showall'
+            var url = '../../../../../canvas/projects/types/showall'
             $.ajax({
                 url: url,
                 async: false,
@@ -175,7 +176,7 @@ var Article = function () {
                     $.each(result.data, function (idx, type) {
                         options = options + '<option value="'+type.id+'">'+type.name+'</option>';
                     });
-                    $("#articleType").html(options);
+                    $("#projectType").html(options);
                     
                 },
                 error: function () {
