@@ -1,38 +1,36 @@
-var User = function () {
+var Article = function () {
 
-    var handEditForm = function() {
+    var handleArticleForm = function() {
 
-        $('.form_edit_user').validate({
+        $('.form_article').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-                email: {
+                title: {
                     required: true,
-                    email: true
+                    remote: {
+                            url:  '../../../../canvas/users/validate/email',
+                            type: "POST",
+                            data: {
+                                email: function() {
+                                    return $( "#email" ).val();
+                                }
+                            }
+                    }
                 },
-                accessType: {
-                    required: true
-                },
-                positionTitle: {
+                articleType: {
                     required: true
                 }
             },
 
             messages: {
-                email: {
-                    required: "Email is required.",
-                    email: "Not a Valid Email",
-                    remote: "Email already in use!"
+                title: {
+                    required: "Title is required.",
+                    remote: "Title already in use!"
                 },
-                password: {
-                    required: "Password is required."
-                },
-                accessType: {
-                    required: "Field is required."
-                },
-                positionTitle: {
+                articleType: {
                     required: "Field is required."
                 }
             },
@@ -51,18 +49,8 @@ var User = function () {
                 label.remove();
             },
 
-            // errorPlacement: function(error, element) {
-            //     if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
-            //         error.insertAfter($('#register_tnc_error'));
-            //     } else if (element.closest('.input-icon').size() === 1) {
-            //         error.insertAfter(element.closest('.input-icon'));
-            //     } else {
-            //         error.insertAfter(element);
-            //     }
-            // },
-
             submitHandler: function(form) {
-                $('.form_edit_user').submit(function( event ) {
+                $('.form_article').submit(function( event ) {
                     var postData = $(this).serializeArray();
                     var formURL = $(this).attr("action");
                     $.ajax({
@@ -80,16 +68,16 @@ var User = function () {
                             toastr.error('Failed',textStatus);
                         }
                     });
-                    event.preventDefault();
+                    // event.preventDefault();
                     return false;
                 });
             }
         });
 
-        $('.form_edit_user input').keypress(function(e) {
+        $('.form_article input').keypress(function(e) {
             if (e.which == 13) {
-                if ($('.form_edit_user').validate().form()) {
-                    $('.form_edit_user').submit(function() {
+                if ($('.form_article').validate().form()) {
+                    $('.form_article').submit(function() {
                      var postData = $(this).serializeArray();
                      var formURL = $(this).attr("action");
                      $.ajax({
@@ -113,40 +101,42 @@ var User = function () {
                 return false;
             }
         });
-
-        // jQuery('#register-btn').click(function() {
-        //     jQuery('.login-form').hide();
-        //     jQuery('.register-form').show();
-        // });
-
-        // jQuery('#register-back-btn').click(function() {
-        //     jQuery('.login-form').show();
-        //     jQuery('.register-form').hide();
-        // });
     }
     
     return {
 
         init: function() {
-            handEditForm();
+            handleArticleForm();
         },
 
-        initUser: function (els) {
+        initArticle: function (els) {
             var id = ReturnParam('id');
             /* Send the data */
             $.ajax({
-                url:"../../../../../canvas/users/get&id="+id,
+                url:"../../../../../canvas/articles/get&id="+id,
                 async: true,
                 type: "get",
                 success: function (json) {
+                    console.log(json.data.content);
+                    $('#title').val(json.data.title);
+                    $('#articleTagID').val(json.data.tags.id);
                     $('#id').val(json.data.id);
-                    $('#email').val(json.data.email);
-                    $('#positionTitle').val(json.data.user_position);
-                    $('.accessType option[value="'+json.data.user_access+'"]').prop('selected', true);
-                    if(json.data.image_id != null){
-                        var url = json.data.image.url;
+
+                    CKEDITOR.replace( 'content', {
+                        toolbar: 'Advance',
+                        uiColor: '#9AB8F3'
+                    });
+
+                    CKEDITOR.instances.content.setData( json.data.content, function()
+                    {
+                        this.checkDirty();  // true
+                    });
+
+                    $('.articleType option[value="'+json.data.tags.article_type.id+'"]').prop('selected', true);
+                    if(json.data.featured_image.id != null){
+                        var url = json.data.featured_image.url;
                         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
-                        + '<input type="hidden" class="form-control" name="image" id="image" placeholder="Enter text" readonly="true" value="'+json.data.image.id+'">'
+                        + '<input type="hidden" class="form-control" name="image" id="image" placeholder="Enter text" readonly="true" value="'+json.data.featured_image.id+'">'
                         +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>';
                         $("#displayImg").html(img);
                     }
@@ -182,6 +172,30 @@ var User = function () {
                     },
                 ]
             } );
+        },
+
+        initArticleTypes: function (els){
+
+            var url = '../../../../../canvas/articles/types/showall'
+            $.ajax({
+                url: url,
+                async: false,
+                type: "get",
+                success: function (result) {
+                    var options = null;
+                    $.each(result.data, function (idx, type) {
+                        options = options + '<option value="'+type.id+'">'+type.name+'</option>';
+                    });
+                    $("#articleType").html(options);
+                    
+                },
+                error: function () {
+                    toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+                }
+            });
+    
+            $('#UsersTable').DataTable().ajax.reload();
+
         }
 
     };

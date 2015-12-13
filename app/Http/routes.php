@@ -128,16 +128,35 @@
 				Route::get('/show&id={id}', function () {
 			    	return view('canvas/articles/show');
 				});
+
+				Route::get('/edit&id={id}', function () {
+					return view('canvas/articles/edit');
+				});
+
+				Route::get('/manage', function () {
+					return view('canvas/articles/manage');
+				});
 	
-				Route::post('/update', 'Canvas\ImageController@update');
+				Route::post('/create', 'Canvas\ArticleController@create');
 
-				Route::get('/showall', 'Canvas\ImageController@showAll');
+				Route::post('/update', 'Canvas\ArticleController@update');
 
-				Route::get('/publish&id={id}',
-				array('uses'=>'Canvas\ImageController@publish'));
+				Route::get('/delete&id={id}',
+				array('uses'=>'Canvas\ArticleController@delete'));
 
 				Route::get('/unpublish&id={id}',
-				array('uses'=>'Canvas\ImageController@unpublish'));
+				array('uses'=>'Canvas\ArticleController@deActivate'));
+
+				Route::get('/publish&id={id}',
+				array('uses'=>'Canvas\ArticleController@activate'));
+
+				Route::get('/types/showall', 'Canvas\ArticleController@getArticleTypes');
+
+				Route::get('/myarticles','Canvas\ArticleController@getMyArticles');
+
+				Route::get('/getall','Canvas\ArticleController@getAllArticles');
+
+				Route::get('/get&id={id}','Canvas\ArticleController@getArticle');
 
 			});
 		/** END Article Module **/
