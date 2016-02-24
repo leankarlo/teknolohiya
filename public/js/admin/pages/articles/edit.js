@@ -126,7 +126,7 @@ var Article = function () {
                         var url = json.data.featured_image.url;
                         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
                         + '<input type="hidden" class="form-control" name="image" id="image" placeholder="Enter text" readonly="true" value="'+json.data.featured_image.id+'">'
-                        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>';
+                        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="image_selection()">Select a Primary Photo </a>';
                         $("#displayImg").html(img);
                     }
                 },
@@ -139,6 +139,10 @@ var Article = function () {
         initImages: function (els) {
             $('#imageTable').DataTable( {
                 "ajax": "../../../../../canvas/images/show",
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
                 "columns": [
                     {
                         sortable: false,
@@ -192,7 +196,12 @@ var Article = function () {
 
 $(document).ready(function() {
 
-    window.loadImages = function(){
+    window.refreshTable = function(){
+                $('#image_selection').DataTable().ajax.reload();
+                console.log("refresh")
+            }
+
+    window.loadImageTable = function(){
         $('#imageTable').DataTable().ajax.reload();
         
     }

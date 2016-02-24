@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
         User::create(array(
             'email' => 'amin1@teknolohiya.ph',
             'password' => Hash::make('pw1234'),
-            'isActive' => 1
+            'user_type' => 0
         ));
         $this->command->info('User table seeded ...');
     }

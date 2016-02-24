@@ -160,6 +160,10 @@ var User = function () {
         initImages: function (els) {
             $('#imageTable').DataTable( {
                 "ajax": "../../../../../canvas/images/show",
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
                 "columns": [
                     {
                         sortable: false,
@@ -189,11 +193,15 @@ var User = function () {
 
 $(document).ready(function() {
 
-    window.loadImages = function(){
+    window.refreshTable = function(){
+                $('#image_selection').DataTable().ajax.reload();
+                console.log("refresh")
+            }
+
+    window.loadImageTable = function(){
         $('#imageTable').DataTable().ajax.reload();
         
     }
-
     window.selectImage = function(id,url){
         
         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
@@ -202,6 +210,7 @@ $(document).ready(function() {
         $("#displayImg").html(img);
         console.log(id + ' - ' + url + ' - ' + img);
     }
+    
     window.ReturnParam = function(sParam){
         //Hakuna matata ^_^
         var sPageURL = window.location.href;

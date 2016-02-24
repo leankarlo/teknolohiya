@@ -7,7 +7,7 @@ var Manage = function () {
                     {
                         sortable: false,
                         "render": function ( data, type, user, meta ) {
-                            if(user.image_id != null){
+                            if(user.image != null){
                             	var image_url = user.image.url;
                             	return '<img src="'+image_url+'" style="width: 50px;">';
                             }else{

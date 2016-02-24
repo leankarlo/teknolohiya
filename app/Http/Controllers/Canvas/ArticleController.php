@@ -42,7 +42,11 @@ class ArticleController extends Controller
             $article->title = $input['title'];
             $article->author = Auth::user()->id;
             $article->content = $input['content'];
-            $article->featured_image = $input['image'];
+
+            if (array_key_exists('image', $input)) {
+                $article->featured_image = $input['image'];
+            }
+
             $article->save();
 
             $articleTag = new ArticleTag;
@@ -78,14 +82,16 @@ class ArticleController extends Controller
             $article = Article::find($input['id']);
             $article->title = $input['title'];
             $article->content = $input['content'];
-            $article->featured_image = $input['image'];
+            if (array_key_exists('image', $input)) {
+                $article->featured_image = $input['image'];
+            }
             $article->save();
 
             $articleTag = ArticleTag::find($input['articleTagID']);
             $articleTag->article_types_id = $input['articleType'];
             $articleTag->save();
 
-            return Response::json(array('result'=>'true', 'message'=>$input['articleTagID']));
+            return Response::json(array('result'=>'true', 'message'=>"Article Has Been Updated"));
 
         }catch(Exception $e){
             return Response::json(array('result' => 'false', 'message' => $e ));

@@ -50,6 +50,7 @@ class ModuleController extends Controller
             $q->where('access_type', '>=', $accessType);
         }])
         ->where('modules.access_type', '>=', $accessType)
+        ->where('modules.isActive', 1)
         ->get();
         return Response::json($modules);
         

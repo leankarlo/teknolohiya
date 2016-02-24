@@ -8,6 +8,7 @@
 	<!-- BEGIN PAGE STYLES -->
 	<link href="{{ asset('packages/select2/select2.css')}}" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('packages/dropzone/css/dropzone.css')}}"/>
 	<!-- END PAGE STYLES -->
 @stop
 
@@ -85,50 +86,7 @@
 	</div>
 
 	{{-- MODALS --}}
-	<!-- /.modal -->
-	<div class="modal fade bs-modal-lg" id="image_selection" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Select an Image</h4>
-				</div>
-				<div class="modal-body">
-					<!-- BEGIN EXAMPLE TABLE PORTLET-->
-					<div class="portlet box grey-cascade">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-globe"></i>Image Table
-							</div>
-						</div>
-						<div class="portlet-body">
-							<div class="table-toolbar">
-						
-							</div>
-							<table class="table table-striped table-bordered table-hover" id="imageTable">
-								<thead>
-									<tr>
-										<th>Image</th>
-                            	  		<th>URL</th>
-                            	  		<th>Actions</th>
-                            	  	</tr>
-								</thead>
-								<tbody id="table_body">
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- END EXAMPLE TABLE PORTLET-->
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+	@include('canvas.modals.selectimagemodal')
 
 @endsection
 
@@ -141,6 +99,7 @@
 	<script type="text/javascript" src="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 	<script src="{{ asset('packages/jquery-validation/js/jquery.validate.js') }}" type="text/javascript"></script>
 	<script type="text/javascript" src="{{ asset('packages/ckeditor/ckeditor.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('packages/dropzone/dropzone.js')}}"></script>
 
 	<script src="{{ asset('js/admin/pages/projects/new.js')}}"></script>
 	<script>

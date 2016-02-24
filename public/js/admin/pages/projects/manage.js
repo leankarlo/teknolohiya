@@ -61,14 +61,19 @@ $(document).ready(function() {
             success: function (data) {
                 if(data.result == 'true'){
                     toastr.success(data.message, data.result);
+                    console.log("success");
+                    console.log(data.result);
                 }
                 else{
                     toastr.error(data.message, data.result);
+                    console.log("fail");
+                    console.log(data.result);
                 }
                 
             },
             error: function () {
                 toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+                console.log("error");
             }
         });
 

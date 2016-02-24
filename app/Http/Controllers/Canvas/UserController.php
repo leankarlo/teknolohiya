@@ -75,7 +75,7 @@ class UserController extends Controller
             }
             $user->save();
     
-            return Response::json(array('result'=>'true', 'message'=>'Succefully save changes'));
+            return Response::json(array('result'=>'true', 'message'=>'Succefully UPDATED!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'false', $e));
         }

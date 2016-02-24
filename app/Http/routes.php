@@ -15,8 +15,8 @@
 |
 */
 
-	/* MAIN ROUTES */
-
+/* MAIN ROUTES */
+/* CANVAS ROUTES */
 	// login
 	Route::get('/login', function () {
 	    return view('canvas/login/index');
@@ -156,8 +156,8 @@
 
 				Route::get('/getall','Canvas\ArticleController@getAllArticles');
 
-				Route::get('/get&id={id}','Canvas\ArticleController@getArticle');
-
+				Route::get('/get&id={id}',
+				array('uses'=>'Canvas\ArticleController@getArticle'));
 			});
 		/** END Article Module **/
 
@@ -202,7 +202,118 @@
 			});
 		/** END Project Module **/
 
+		/** Pages Module **/
+			Route::group(array('prefix'=>'pages'), function(){
+				
+				/** Promos **/
+				Route::group(array('prefix'=>'promos'), function(){
+				
+					Route::get('/', function () {
+						return view('canvas/pages/promomanagement');
+					});
+
+					Route::get('/getall','Canvas\PromosController@getAll');
+
+					Route::post('/insert', 'Canvas\PromosController@create');
+
+					Route::get('/delete&id={id}',
+					array('uses'=>'Canvas\PromosController@delete'));
+	
+					Route::get('/unpublish&id={id}',
+					array('uses'=>'Canvas\PromosController@deActivate'));
+	
+					Route::get('/publish&id={id}',
+					array('uses'=>'Canvas\PromosController@activate'));
+					
+				});
+				/** END Promos **/
+
+				/** Slider **/
+				Route::group(array('prefix'=>'slider'), function(){
+				
+					Route::get('/', function () {
+						return view('canvas/pages/slider');
+					});
+
+					Route::get('/getall','Canvas\SliderController@getAll');
+
+					Route::post('/insert', 'Canvas\SliderController@create');
+
+					Route::get('/delete&id={id}',
+					array('uses'=>'Canvas\SliderController@delete'));
+	
+					Route::get('/unpublish&id={id}',
+					array('uses'=>'Canvas\SliderController@deActivate'));
+	
+					Route::get('/publish&id={id}',
+					array('uses'=>'Canvas\SliderController@activate'));
+					
+				});
+				/** END Promos **/
+
+				/** Contact **/
+				Route::group(array('prefix'=>'contact'), function(){
+				
+					Route::get('/', function () {
+						return view('canvas/pages/contact');
+					});
+
+					Route::get('/getall','Canvas\ContactController@getAll');
+
+					Route::get('/get&id={id}',
+					array('uses'=>'Canvas\ContactController@getContact'));
+
+					Route::post('/insert', 'Canvas\ContactController@create');
+
+					Route::post('/update', 'Canvas\ContactController@update');
+
+					Route::get('/delete&id={id}',
+					array('uses'=>'Canvas\ContactController@delete'));
+	
+					Route::get('/unpublish&id={id}',
+					array('uses'=>'Canvas\ContactController@deActivate'));
+	
+					Route::get('/publish&id={id}',
+					array('uses'=>'Canvas\ContactController@activate'));
+					
+				});
+				/** END Promos **/
+				
+			});
+		/** END Pages Module **/
+
 	});
 	/* END MODULES ROUTES */
 
 /* CANVAS ROUTES END */
+
+/** Web App Route **/
+
+	// login
+		Route::get('/', function () {
+		    return view('app/home/index');
+		});
+	
+	/** Image Module **/
+		Route::group(array('prefix'=>'images'), function(){
+	
+			Route::get('/show', 'Canvas\ImageController@showAll');
+	
+		});
+	/** END Image Module **/
+	/** Article Module **/
+		Route::group(array('prefix'=>'articles'), function(){
+			// Route::get('/types/showall', 'App\ArticleController@getArticleTypes');
+			// Route::get('/myarticles','App\ArticleController@getMyArticles');
+			Route::get('/getall','App\ArticleController@getAllArticles');
+		});
+	/** END Article Module **/
+	/** Project Module **/
+		// Route::group(array('prefix'=>'projects'), function(){
+			// Route::get('/types/showall', 'Canvas\ProjectController@getProjectTypes');
+			// Route::get('/getAllProjects','Canvas\ProjectController@getAllProjects');
+			// Route::get('/get&id={id}','Canvas\ProjectController@getProject');
+		// });
+	/** END Project Module **/
+
+/** END Web App Route **/

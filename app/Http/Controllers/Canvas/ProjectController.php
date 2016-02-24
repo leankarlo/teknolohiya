@@ -41,7 +41,9 @@ class ProjectController extends Controller
             $project = new Project;
             $project->title = $input['title'];
             $project->content = $input['content'];
-            $project->featured_image = $input['image'];
+            if (array_key_exists('image', $input)) {
+                $project->featured_image = $input['image'];
+            }
             $project->save();
 
             $projectTag = new ProjectTag;
@@ -61,7 +63,7 @@ class ProjectController extends Controller
             $project = Project::find($id);
             $project->delete();
 
-            $projectTag = ProjectTag::where('$project_id', $id);
+            $projectTag = ProjectTag::where('project_id', $id);
             $projectTag->delete();
 
             return Response::json(array('result'=>'true', 'message'=>'Project Succesfully Deleted!!'));
@@ -78,14 +80,16 @@ class ProjectController extends Controller
             $project = Project::find($input['id']);
             $project->title = $input['title'];
             $project->content = $input['content'];
-            $project->featured_image = $input['image'];
+            if (array_key_exists('image', $input)) {
+                $project->featured_image = $input['image'];
+            }
             $project->save();
 
             $projectTag = ProjectTag::find($input['projectTagID']);
             $projectTag->project_types_id = $input['projectType'];
             $projectTag->save();
 
-            return Response::json(array('result'=>'true', 'message'=>'Project Succesfully SAVED!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Project Succesfully UPDATED!!'));
 
         }catch(Exception $e){
             return Response::json(array('result' => 'false', 'message' => $e ));

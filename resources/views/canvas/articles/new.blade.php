@@ -8,6 +8,7 @@
 	<!-- BEGIN PAGE STYLES -->
 	<link href="{{ asset('packages/select2/select2.css')}}" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('packages/dropzone/css/dropzone.css')}}"/>
 	<!-- END PAGE STYLES -->
 @stop
 
@@ -57,7 +58,10 @@
 							{{-- Article Content --}}
 							<div class="form-group form-md-line-input">
 								<label class="col-md-3 control-label">Article Content</label>
-								<div class="col-md-9">
+							</div>
+
+							<div class="form-group form-md-line-input">
+								<div class="col-md-12">
 									<textarea class="ckeditor form-control" name="content" id="content" rows="6"></textarea>
 								</div>
 							</div>
@@ -66,7 +70,7 @@
 							<div class="form-group form-md-line-input">
 								<label class="col-md-3 control-label">Featured Photo</label>
 								<div class="col-md-4" id="displayImg">
-									<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImages()">Select a Primary Photo </a>
+									<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>
 								</div>
 							</div>
 						</div>
@@ -82,53 +86,11 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 
 	{{-- MODALS --}}
-	<!-- /.modal -->
-	<div class="modal fade bs-modal-lg" id="image_selection" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Select an Image</h4>
-				</div>
-				<div class="modal-body">
-					<!-- BEGIN EXAMPLE TABLE PORTLET-->
-					<div class="portlet box grey-cascade">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-globe"></i>Image Table
-							</div>
-						</div>
-						<div class="portlet-body">
-							<div class="table-toolbar">
-						
-							</div>
-							<table class="table table-striped table-bordered table-hover" id="imageTable">
-								<thead>
-									<tr>
-										<th>Image</th>
-                            	  		<th>URL</th>
-                            	  		<th>Actions</th>
-                            	  	</tr>
-								</thead>
-								<tbody id="table_body">
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- END EXAMPLE TABLE PORTLET-->
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+	@include('canvas.modals.selectimagemodal')
 
 @endsection
 
@@ -141,6 +103,7 @@
 	<script type="text/javascript" src="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 	<script src="{{ asset('packages/jquery-validation/js/jquery.validate.js') }}" type="text/javascript"></script>
 	<script type="text/javascript" src="{{ asset('packages/ckeditor/ckeditor.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('packages/dropzone/dropzone.js')}}"></script>
 
 	<script src="{{ asset('js/admin/pages/articles/new.js')}}"></script>
 	<script>

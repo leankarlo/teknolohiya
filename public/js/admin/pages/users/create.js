@@ -100,6 +100,10 @@ var Images = function () {
         initImages: function (els) {
             $('#imageTable').DataTable( {
                 "ajax": "../../../../../canvas/images/show",
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
                 "columns": [
                     {
                         sortable: false,
@@ -129,7 +133,12 @@ var Images = function () {
 
 $(document).ready(function() {
 
-    window.loadImages = function(){
+     window.refreshTable = function(){
+                $('#image_selection').DataTable().ajax.reload();
+                console.log("refresh")
+            }
+
+    window.loadImageTable = function(){
         $('#imageTable').DataTable().ajax.reload();
         
     }
