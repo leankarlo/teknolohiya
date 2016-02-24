@@ -42,7 +42,6 @@
 	
 			// only display module that is allowed to the current user
 			Route::get('module/getAll', 'Canvas\ModuleController@getUserModules');
-
 		/** END Main Canvas **/
 
 		/** User Module **/
@@ -163,7 +162,6 @@
 
 		/** Project Module **/
 			Route::group(array('prefix'=>'projects'), function(){
-
 				Route::get('/manage', function () {
 			    	return view('canvas/projects/manage');
 				});
@@ -198,7 +196,6 @@
 				Route::get('/getAllProjects','Canvas\ProjectController@getAllProjects');
 
 				Route::get('/get&id={id}','Canvas\ProjectController@getProject');
-
 			});
 		/** END Project Module **/
 
@@ -206,81 +203,91 @@
 			Route::group(array('prefix'=>'pages'), function(){
 				
 				/** Promos **/
-				Route::group(array('prefix'=>'promos'), function(){
-				
-					Route::get('/', function () {
-						return view('canvas/pages/promomanagement');
-					});
-
-					Route::get('/getall','Canvas\PromosController@getAll');
-
-					Route::post('/insert', 'Canvas\PromosController@create');
-
-					Route::get('/delete&id={id}',
-					array('uses'=>'Canvas\PromosController@delete'));
-	
-					Route::get('/unpublish&id={id}',
-					array('uses'=>'Canvas\PromosController@deActivate'));
-	
-					Route::get('/publish&id={id}',
-					array('uses'=>'Canvas\PromosController@activate'));
+					Route::group(array('prefix'=>'promos'), function(){
 					
-				});
+						Route::get('/', function () {
+							return view('canvas/pages/promomanagement');
+						});
+	
+						Route::get('/getall','Canvas\PromosController@getAll');
+	
+						Route::post('/insert', 'Canvas\PromosController@create');
+	
+						Route::get('/delete&id={id}',
+						array('uses'=>'Canvas\PromosController@delete'));
+		
+						Route::get('/unpublish&id={id}',
+						array('uses'=>'Canvas\PromosController@deActivate'));
+		
+						Route::get('/publish&id={id}',
+						array('uses'=>'Canvas\PromosController@activate'));
+						
+					});
 				/** END Promos **/
 
 				/** Slider **/
-				Route::group(array('prefix'=>'slider'), function(){
-				
-					Route::get('/', function () {
-						return view('canvas/pages/slider');
-					});
-
-					Route::get('/getall','Canvas\SliderController@getAll');
-
-					Route::post('/insert', 'Canvas\SliderController@create');
-
-					Route::get('/delete&id={id}',
-					array('uses'=>'Canvas\SliderController@delete'));
-	
-					Route::get('/unpublish&id={id}',
-					array('uses'=>'Canvas\SliderController@deActivate'));
-	
-					Route::get('/publish&id={id}',
-					array('uses'=>'Canvas\SliderController@activate'));
+					Route::group(array('prefix'=>'slider'), function(){
 					
-				});
-				/** END Promos **/
+						Route::get('/', function () {
+							return view('canvas/pages/slider');
+						});
+	
+						Route::get('/getall','Canvas\SliderController@getAll');
+	
+						Route::post('/insert', 'Canvas\SliderController@create');
+	
+						Route::get('/delete&id={id}',
+						array('uses'=>'Canvas\SliderController@delete'));
+		
+						Route::get('/unpublish&id={id}',
+						array('uses'=>'Canvas\SliderController@deActivate'));
+		
+						Route::get('/publish&id={id}',
+						array('uses'=>'Canvas\SliderController@activate'));
+						
+					});
+				/** END Slider **/
 
 				/** Contact **/
-				Route::group(array('prefix'=>'contact'), function(){
-				
-					Route::get('/', function () {
-						return view('canvas/pages/contact');
-					});
-
-					Route::get('/getall','Canvas\ContactController@getAll');
-
-					Route::get('/get&id={id}',
-					array('uses'=>'Canvas\ContactController@getContact'));
-
-					Route::post('/insert', 'Canvas\ContactController@create');
-
-					Route::post('/update', 'Canvas\ContactController@update');
-
-					Route::get('/delete&id={id}',
-					array('uses'=>'Canvas\ContactController@delete'));
-	
-					Route::get('/unpublish&id={id}',
-					array('uses'=>'Canvas\ContactController@deActivate'));
-	
-					Route::get('/publish&id={id}',
-					array('uses'=>'Canvas\ContactController@activate'));
+					Route::group(array('prefix'=>'contact'), function(){
 					
-				});
+						Route::get('/', function () {
+							return view('canvas/pages/contact');
+						});
+	
+						Route::get('/getall','Canvas\ContactController@getAll');
+	
+						Route::get('/get&id={id}',
+						array('uses'=>'Canvas\ContactController@getContact'));
+	
+						Route::post('/insert', 'Canvas\ContactController@create');
+	
+						Route::post('/update', 'Canvas\ContactController@update');
+	
+						Route::get('/delete&id={id}',
+						array('uses'=>'Canvas\ContactController@delete'));
+		
+						Route::get('/unpublish&id={id}',
+						array('uses'=>'Canvas\ContactController@deActivate'));
+		
+						Route::get('/publish&id={id}',
+						array('uses'=>'Canvas\ContactController@activate'));
+						
+					});
 				/** END Promos **/
 				
 			});
 		/** END Pages Module **/
+
+		/** Product Module **/
+			Route::group(array('prefix'=>'products'), function(){
+				Route::get('/manage', function () {
+			    	return view('canvas/products/manage');
+				});
+
+				Route::get('/getall','Canvas\ProductController@ShowAll');
+			});
+		/** END Product Module **/
 
 	});
 	/* END MODULES ROUTES */
