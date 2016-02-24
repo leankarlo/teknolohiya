@@ -286,6 +286,8 @@
 				});
 
 				Route::get('/getall','Canvas\ProductController@ShowAll');
+
+				Route::post('/create', 'Canvas\ProductController@create');
 			});
 		/** END Product Module **/
 

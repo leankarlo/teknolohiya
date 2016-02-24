@@ -34,4 +34,23 @@ class ProductController extends Controller
         return Response::json(array('data' => $products));
     }
 
+    protected function create(Request $request){
+        // INITIALIZATION
+        $input = $request->all();
+
+        try{
+            $product = new Product;
+            $product->name              = $input['product_name'];
+            $product->description       = $input['product_description'];
+            $product->price             = $input['product_price'];
+            $product->primary_image     = $input['image'];
+            $product->save();
+
+            return Response::json(array('result' => 'true', 'id' => $product->id ));
+
+        }catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => $e ));
+        }
+    }
+
 }

@@ -8,6 +8,9 @@ var ProductCreate = function () {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
+                image: {
+                    required: true
+                },
                 product_name: {
                     minlength: 2,
                     required: true
@@ -47,7 +50,7 @@ var ProductCreate = function () {
             success: function(label) {
                 label.closest('.form-group').removeClass('has-error');
                 label.remove();
-                EnableSubmitToEditButton();
+                // EnableSubmitToEditButton();
             },
 
             submitHandler: function(form) {
@@ -61,7 +64,9 @@ var ProductCreate = function () {
                         success:function(data, textStatus, jqXHR) 
                         {
                             toastr.clear();
-                            toastr.success('Succefull','Changes has been saved');
+                            toastr.success('Succefull',data.id);
+                            $('#product_id').val(data.id);
+                            EnableSubmitToEditButton();
                         },
                         error: function(jqXHR, textStatus, errorThrown) 
                         {
@@ -101,38 +106,6 @@ var ProductCreate = function () {
         init: function() {
             handleProductForm();
         },
-
-        initImages: function (els) {
-            $('#imageTable').DataTable( {
-                "ajax": "../../../../../canvas/images/show",
-                "lengthMenu": [
-                    [5, 15, 20, -1],
-                    [5, 15, 20, "All"] // change per page values here
-                ],
-                "columns": [
-                    {
-                        sortable: false,
-                        "render": function ( data, type, image, meta ) {
-                            var image_url = image.url;
-                            return '<img src="'+image_url+'" style="width: 150px;">';
-                        }
-                    },
-                    { "data": "url" },
-                    {
-                        sortable: false,
-                        "render": function ( data, type, image, meta ) {
-                            var img_url = image.url;
-                            img_url = "'" + img_url + "'";
-                            // var content = '<a   href="#" class="btn " >Edit</a>'
-                                        // + '<a onclick="notifyDelete('+image.id+')" data-toggle="modal" href="#alert" class="btn btn-danger deleteBtn" >Delete</a>'
-                            var content = '<a data-dismiss="modal"  onclick="selectImage('+image.id+','+img_url+')" class="btn btn-success" >Select</a>';
-                            return content;
-                        }
-                    },
-                ]
-            } );
-        },
-
     };
 }();
 
@@ -149,6 +122,7 @@ $(document).ready(function() {
         $('#delete').prop("disabled",true);
         $('#tab_category').prop("disabled",true);
         $('#tab_images').prop("disabled",true);
+        $('#product_status').prop("disabled",true);
     }
 
     window.EnableSubmitToEditButton = function(){
@@ -158,5 +132,16 @@ $(document).ready(function() {
         $('#tab_images').prop("disabled",false);
     }
 
+    window.ReturnParam = function(sParam){
+        //Hakuna matata ^_^
+        var sPageURL = window.location.href;
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
 
 } );// END Ducement Ready

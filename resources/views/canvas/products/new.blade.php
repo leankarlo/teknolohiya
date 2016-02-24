@@ -31,16 +31,19 @@
 				</ul>
 				<div class="tab-content no-space">
 					<div class="tab-pane active" id="tab_general">
-						{!! Form::open(array('action' => 'Canvas\UserController@create' ,'class'=>'form-horizontal form_product', 'id' => 'form_product', 'method'=>'post','files'=> 'true')) !!}
+						{!! Form::open(array('action' => 'Canvas\ProductController@create' ,'class'=>'form-horizontal form_product', 'id' => 'form_product', 'method'=>'post','files'=> 'true')) !!}
 						<div class="form-body">
+							<input type="hidden" class="form-control" name="product_id" id="product_id">
 							<div class="form-group">
 								<label class="col-md-2 control-label">Primary Image: <span class="required">
 								* </span>
 								</label>
-								<div class="col-md-10">
-									<input type="text" class="form-control" name="product_primary_image" placeholder="">
+								<div class="col-md-10" id="displayImg">
+									<input type="input" class="form-control" name="image" id="image" placeholder="Input Image" readonly="true">
+									<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>
 								</div>
 							</div>
+
 							<div class="form-group">
 								<label class="col-md-2 control-label">Name: <span class="required">
 								* </span>
@@ -67,10 +70,10 @@
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Status: <span class="required">
-								* </span>
+								automatically set to not published on create mode. </span>
 								</label>
 								<div class="col-md-10">
-									<select class="table-group-action-input form-control input-medium" name="product_status">
+									<select class="table-group-action-input form-control input-medium" name="product_status" id="product_status">
 										<option value="0">Not Published</option>
 										<option value="1">Published</option>
 									</select>

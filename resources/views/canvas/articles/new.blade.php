@@ -108,9 +108,15 @@
 	<script src="{{ asset('js/admin/pages/articles/new.js')}}"></script>
 	<script>
 	jQuery(document).ready(function() {    
-	   Article.initImages(); 
 	   Article.initArticleTypes();
 	   Article.init();
+	});
+	</script>
+
+	<script src="{{ asset('js/admin/global/imageselection.js')}}"></script>
+	<script>
+	jQuery(document).ready(function() {
+	   ImageSelection.initImages();
 	});
 	</script>
 

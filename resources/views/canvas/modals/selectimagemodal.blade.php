@@ -38,7 +38,7 @@
 					<!-- END EXAMPLE TABLE PORTLET-->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn default" data-toggle="modal" href="#uploadImage">Upload</button>
+					<button type="button" class="btn default" data-dismiss="modal" data-toggle="modal" href="#uploadImage">Upload</button>
 					<button type="button" class="btn default" data-dismiss="modal" >Close</button>
 				</div>
 			</div>

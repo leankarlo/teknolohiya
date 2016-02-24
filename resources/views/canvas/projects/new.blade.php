@@ -103,10 +103,16 @@
 
 	<script src="{{ asset('js/admin/pages/projects/new.js')}}"></script>
 	<script>
-	jQuery(document).ready(function() {    
-	   Project.initImages(); 
+	jQuery(document).ready(function() {
 	   Project.initProjectTypes();
 	   Project.init();
+	});
+	</script>
+
+	<script src="{{ asset('js/admin/global/imageselection.js')}}"></script>
+	<script>
+	jQuery(document).ready(function() {
+	   ImageSelection.initImages();
 	});
 	</script>
 

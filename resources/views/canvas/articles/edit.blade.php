@@ -95,11 +95,17 @@
 
 	<script src="{{ asset('js/admin/pages/articles/edit.js')}}"></script>
 	<script>
-	jQuery(document).ready(function() {    
-	   Article.initImages(); 
+	jQuery(document).ready(function() {
 	   Article.initArticleTypes();
 	   Article.initArticle();
 	   Article.init();
+	});
+	</script>
+
+	<script src="{{ asset('js/admin/global/imageselection.js')}}"></script>
+	<script>
+	jQuery(document).ready(function() {
+	   ImageSelection.initImages();
 	});
 	</script>
 

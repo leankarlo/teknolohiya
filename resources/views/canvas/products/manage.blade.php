@@ -8,6 +8,7 @@
 	<!-- BEGIN PAGE STYLES -->
 	<link href="{{ asset('packages/select2/select2.css')}}" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('packages/dropzone/css/dropzone.css')}}"/>
 	<!-- END PAGE STYLES -->
 @stop
 
@@ -71,7 +72,7 @@
 	</div>
 	<!-- /.modal -->
 
-	@include('canvas.products.new')
+	@include('canvas.modals.selectimagemodal')
 
 @endsection
 
@@ -84,13 +85,22 @@
 	<script type="text/javascript" src="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 	<script src="{{ asset('packages/jquery-validation/js/jquery.validate.js') }}" type="text/javascript"></script>
 
+	<script type="text/javascript" src="{{ asset('packages/dropzone/dropzone.js')}}"></script>
 	<script src="{{ asset('js/admin/pages/products/manage.js')}}"></script>
 	<script src="{{ asset('js/admin/pages/products/ProductCreate.js')}}"></script>
+
 	<script>
 	jQuery(document).ready(function() {   
 	   Products.init();
 	   ProductCreate.init();
-	   ProductCreate.initImages();
+	   ImageSelection.initImages();
+	});
+	</script>
+
+	<script src="{{ asset('js/admin/global/imageselection.js')}}"></script>
+	<script>
+	jQuery(document).ready(function() {
+	   ImageSelection.initImages();
 	});
 	</script>
 
