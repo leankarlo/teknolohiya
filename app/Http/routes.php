@@ -302,6 +302,8 @@
 
 					Route::get('/add&id={id}&product_id={product_id}','Canvas\ProductController@AddProductCategory');
 
+					Route::get('/create_new&name={name}','Canvas\ProductController@CreateNewCategory');
+
 				});
 
 

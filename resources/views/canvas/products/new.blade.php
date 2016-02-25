@@ -80,7 +80,7 @@
 						{!! Form::close() !!}
 					</div>
 					<div class="tab-pane" id="tab_category">
-						<div class="alert alert-warning margin-bottom-10">
+						<div class="alert alert-info margin-bottom-10">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
 							<i class="fa fa-warning fa-lg"></i> Products without category will still not appear on search or filters via category.
 						</div>
@@ -116,10 +116,12 @@
 							<i class="fa fa-warning fa-lg"></i> Image without color type will automatically be on standard color
 						</div>
 						<div id="tab_images_uploader_container" class="text-align-reverse margin-bottom-10">
+							
 							<a id="tab_images_uploader_pickfiles" href="javascript:;" class="btn yellow">
-							<i class="fa fa-plus"></i> Select Files </a>
-							<a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
-							<i class="fa fa-share"></i> Upload Files </a>
+							<i class="fa fa-plus"></i> Select Image </a>
+
+							<!-- <a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
+							<i class="fa fa-share"></i> Upload Files </a> -->
 						</div>
 						<div class="row">
 							<div id="tab_images_uploader_filelist" class="col-md-6 col-sm-12">

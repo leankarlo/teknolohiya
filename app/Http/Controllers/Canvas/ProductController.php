@@ -132,4 +132,17 @@ class ProductController extends Controller
         }
     }
 
+    protected function CreateNewCategory($name){
+        try{
+            $productCategory = new ProductCategory;
+            $productCategory->name = $name;
+            $productCategory->save();
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully deleted.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
+        }
+    }
+
 }

@@ -292,5 +292,29 @@ $(document).ready(function() {
         $('#ProductCategoryTable').DataTable().ajax.reload();
     }
 
+    window.CreateCategory = function(){
+        var name = $('#category_name').val();
+
+        var url = '../../../../../canvas/products/category/create_new&name='+name
+        $.ajax({
+            url: url,
+            async: false,
+            type: "get",
+            success: function (data) {
+                if(data.result == 'true'){
+                    toastr.success('Succesfull', data.result);
+                }
+                else{
+                    toastr.error('Succesfull', data.result);
+                }
+                
+            },
+            error: function () {
+                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+            }
+        });
+        ProductCreate.initCategory();
+    }
+
 } );// END Ducement Ready
 
