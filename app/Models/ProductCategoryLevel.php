@@ -18,7 +18,7 @@ class ProductCategoryLevel extends Model
     // Relationship between Images and Product Images
 	public function productCategory()
 	{
-		return $this->belongsTo('ProductCategory', 'category_id');
+		return $this->belongsTo('App\Models\ProductCategory', 'category_id');
 	}
 
 }

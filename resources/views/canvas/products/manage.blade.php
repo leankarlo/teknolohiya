@@ -30,9 +30,12 @@
 					<table class="table table-striped table-bordered table-hover" id="Table">
 						<thead>
 							<tr>
-								<th></th>
-								<th>Product Name</th>
-                            	<th>Action</th>
+								<th class="table-checkbox">
+									<input type="checkbox" class="group-checkable" data-set="#Table .checkboxes"/>
+								</th>
+								<th width="20%">Image</th>
+								<th width="35%">Product Name</th>
+                            	<th width="40%">Action</th>
                             </tr>
 						</thead>
 						<tbody id="table_body">
@@ -74,6 +77,18 @@
 
 	@include('canvas.modals.selectimagemodal')
 
+	<!-- /.modal -->
+	<div class="modal fade bs-modal-lg" id="createNewCategory" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
 @endsection
 
 
@@ -93,6 +108,7 @@
 	jQuery(document).ready(function() {   
 	   Products.init();
 	   ProductCreate.init();
+	   ProductCreate.initCategory();
 	   ImageSelection.initImages();
 	});
 	</script>

@@ -66,7 +66,7 @@ class ProjectController extends Controller
             $projectTag = ProjectTag::where('project_id', $id);
             $projectTag->delete();
 
-            return Response::json(array('result'=>'true', 'message'=>'Project Succesfully Deleted!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Project Successfully Deleted!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -89,7 +89,7 @@ class ProjectController extends Controller
             $projectTag->project_types_id = $input['projectType'];
             $projectTag->save();
 
-            return Response::json(array('result'=>'true', 'message'=>'Project Succesfully UPDATED!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Project Successfully UPDATED!!'));
 
         }catch(Exception $e){
             return Response::json(array('result' => 'false', 'message' => $e ));
@@ -113,7 +113,7 @@ class ProjectController extends Controller
             $project = Project::find($id);
             $project->isPublished = 1;
             $project->save();
-            return Response::json(array('result'=>'true', 'message'=>'Project Succesfully Published!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Project Successfully Published!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -126,7 +126,7 @@ class ProjectController extends Controller
             $project = Project::find($id);
             $project->isPublished = 0;
             $project->save();
-            return Response::json(array('result'=>'true', 'message'=>'Project Succesfully Unpublished!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Project Successfully Unpublished!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }

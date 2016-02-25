@@ -18,7 +18,7 @@ class ProductCategory extends Model
     // Relationship between Product Category and Products Category List
     public function categoryMenu()
     {
-        return $this->hasOne('CategoryMenu', 'category_id');
+        return $this->hasOne('App\Models\CategoryMenu', 'category_id');
     }
 
 }

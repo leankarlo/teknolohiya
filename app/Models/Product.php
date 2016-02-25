@@ -18,17 +18,17 @@ class Product extends Model
     // Relationship between Products and Products Category
     public function productCategoryDetails()
     {
-        return $this->hasMany('ProductCategoryDetail', 'product_id');
+        return $this->hasMany('App\Models\ProductCategoryDetail', 'product_id');
     }
 
     // Relationship between Images and Product Images
     public function image()
     {
-        return $this->hasOne('Image','id', 'primary_image');
+        return $this->hasOne('App\Models\Image','id', 'primary_image');
     }
 
     public function productImages(){
-        return $this->hasMany('ProductImage','product_id');
+        return $this->hasMany('App\Models\ProductImage','product_id');
     }
 
 }

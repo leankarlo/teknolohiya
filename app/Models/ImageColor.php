@@ -18,12 +18,12 @@ class ImageColor extends Model
     // Relationship between Images and Product Image Colors
 	public function productImages()
 	{
-		return $this->hasMany('ProductImage', 'color_id');
+		return $this->hasMany('App\Models\ProductImage', 'color_id');
 	}
 
 	public function productColor()
 	{
-		return $this->belongsTo('ProductImage','color_id');
+		return $this->belongsTo('App\Models\ProductImage','color_id');
 	}
 }
 

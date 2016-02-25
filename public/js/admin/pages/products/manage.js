@@ -5,34 +5,41 @@ var Products = function () {
         var table = $('#Table');
 
         table.DataTable( {
-                "ajax": "../../../../../canvas/articles/myarticles",
+                "ajax": "../../../../../canvas/products/getall",
                 "lengthMenu": [
                     [5, 15, 20, -1],
                     [5, 15, 20, "All"] // change per page values here
                 ],
                 "columns": [
-                    { "data": "title" },
                     {
-                        sortable: true,
-                        "render": function ( data, type, article, meta ) {
-                            if(article.isPublished == 0){
-                                return '<a class="btn btn-warning" >Unpublished</a>';
-                            }
-                            else{
-                                return '<a class="btn btn-success" >Published</a>';
-                            }
-                        }
+                        "render": function ( data, type, data, meta ) {
+                            return '<input type="checkbox" class="checkboxes" value="'+data.id+'"/>'
+                        }      
                     },
                     {
-                        sortable: false,
-                        "render": function ( data, type, article, meta ) {
-                            var _statusAction = '<a onclick="alert('+article.id+',\' Are you sure you want to UNPUBLISHED this ('+article.title+') ? \', \'deactivateArticle\' )" data-toggle="modal" href="#messageAlert" class="btn btn-warning deleteBtn" >Unpublish</a>';
+                        "render": function ( data, type, data, meta ) {
+                            if(data.image != null){
+                                var image_url = data.image.url;
+                                var imgHtml = '<a src="'+image_url+'" class="fancybox-button" data-rel="fancybox-button">'
+                                + '<img class="img-responsive" src="'+image_url+'" alt="" height="100px" width="100px">'
+                                + '</a>'
+                                return imgHtml;
+                            }
+                            else{
+                                return 'N/A';
+                            }
+                        }      
+                    },
+                    { "data": "name" },
+                    {
+                        "render": function ( data, type, data, meta ) {
+                            var _statusAction = '<a onclick="alert('+data.id+',\' Are you sure you want to UNPUBLISHED this ('+data.name+') ? \', \'deactivate\' )" data-toggle="modal" href="#messageAlert" class="btn btn-warning deleteBtn" >Unpublish</a>';
 
-                            if(article.isPublished == 0){
-                                _statusAction = '<a onclick="alert('+article.id+',\' Are you sure you want to PUBLISH this ('+article.title+') ? \', \'activateArticle\' )" data-toggle="modal" href="#messageAlert" class="btn btn-success" >Publish</a>'
+                            if(data.isPublished == 0){
+                                _statusAction = '<a onclick="alert('+data.id+',\' Are you sure you want to PUBLISH this ('+data.name+') ? \', \'activate\' )" data-toggle="modal" href="#messageAlert" class="btn btn-success" >Publish</a>'
                             }
 
-                            var content = '<a   href="/canvas/articles/edit&id='+article.id+'" class="btn " >Edit</a>'
+                            var content = '<a   href="#createProduct" data-toggle="modal" onclick="loadProductForEditing('+data.id+')" class="btn " >Edit</a>'
                                         + _statusAction
                                         ;
                             return content;

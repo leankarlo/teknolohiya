@@ -75,7 +75,7 @@ class UserController extends Controller
             }
             $user->save();
     
-            return Response::json(array('result'=>'true', 'message'=>'Succefully UPDATED!'));
+            return Response::json(array('result'=>'true', 'message'=>'Successfully UPDATED!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'false', $e));
         }
@@ -88,7 +88,7 @@ class UserController extends Controller
             $user = User::find($id);
             $user->isActive = 1;
             $user->save();
-            return Response::json(array('result'=>'true', 'message'=>'User Succesfully Activated!!'));
+            return Response::json(array('result'=>'true', 'message'=>'User Successfully Activated!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -101,7 +101,7 @@ class UserController extends Controller
             $user = User::find($id);
             $user->isActive = 0;
             $user->save();
-            return Response::json(array('result'=>'true', 'message'=>'User Succesfully Deactivated!!'));
+            return Response::json(array('result'=>'true', 'message'=>'User Successfully Deactivated!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -113,7 +113,7 @@ class UserController extends Controller
         try{
             $user = User::find($id);
             $user->delete();
-            return Response::json(array('result'=>'true', 'message'=>'User Succesfully Deleted!!'));
+            return Response::json(array('result'=>'true', 'message'=>'User Successfully Deleted!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }

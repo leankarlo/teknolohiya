@@ -69,7 +69,7 @@ class ArticleController extends Controller
             $articleTag = ArticleTag::where('article_id', $id);
             $articleTag->delete();
 
-            return Response::json(array('result'=>'true', 'message'=>'Article Succesfully Deleted!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Article successfull Deleted!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -120,7 +120,7 @@ class ArticleController extends Controller
             $article = Article::find($id);
             $article->isPublished = 1;
             $article->save();
-            return Response::json(array('result'=>'true', 'message'=>'Article Succesfully Published!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Article successfull Published!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -133,7 +133,7 @@ class ArticleController extends Controller
             $article = Article::find($id);
             $article->isPublished = 0;
             $article->save();
-            return Response::json(array('result'=>'true', 'message'=>'Article Succesfully Unpublished!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Article successfull Unpublished!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }

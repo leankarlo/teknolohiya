@@ -281,13 +281,31 @@
 
 		/** Product Module **/
 			Route::group(array('prefix'=>'products'), function(){
+				
 				Route::get('/manage', function () {
 			    	return view('canvas/products/manage');
 				});
 
 				Route::get('/getall','Canvas\ProductController@ShowAll');
 
-				Route::post('/create', 'Canvas\ProductController@create');
+				Route::post('/create', 'Canvas\ProductController@Create');
+
+				Route::get('/get&id={id}','Canvas\ProductController@GetProduct');
+
+				Route::group(array('prefix'=>'category'), function(){
+
+					Route::get('/get&id={id}','Canvas\ProductController@GetProductCategory');
+
+					Route::get('/getall','Canvas\ProductController@LoadCategorySelection');
+
+					Route::get('/delete&id={id}','Canvas\ProductController@DeleteProductCategory');
+
+					Route::get('/add&id={id}&product_id={product_id}','Canvas\ProductController@AddProductCategory');
+
+				});
+
+
+
 			});
 		/** END Product Module **/
 

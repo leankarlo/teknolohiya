@@ -56,7 +56,7 @@ class SliderController extends Controller
             $slider = Slider::find($id);
             $slider->delete();
 
-            return Response::json(array('result'=>'true','message'=>'Slider Succesfully Deleted'));
+            return Response::json(array('result'=>'true','message'=>'Slider Successfully Deleted'));
         }catch(Exception $e){
             return Response::json(array('result'=>'false','message'=>'Server Error'));
         }
@@ -68,7 +68,7 @@ class SliderController extends Controller
             $article = Slider::find($id);
             $article->status = 1;
             $article->save();
-            return Response::json(array('result'=>'true', 'message'=>'Slider Succesfully Published!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Slider Successfully Published!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -81,7 +81,7 @@ class SliderController extends Controller
             $article = Slider::find($id);
             $article->status = 0;
             $article->save();
-            return Response::json(array('result'=>'true', 'message'=>'Slider Succesfully Unpublished!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Slider Successfully Unpublished!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }

@@ -17,21 +17,21 @@ class ProductImage extends Model
 
     public function image()
 	{
-		return $this->hasOne('Image', 'id','image_id');
+		return $this->hasOne('App\Models\Image', 'id','image_id');
 	}
 
 	public function color()
 	{
-		return $this->belongsTo('ImageColor', 'color_id');
+		return $this->belongsTo('App\Models\ImageColor', 'color_id');
 	}
 
 	public function imageColor()
 	{
-		return $this->hasOne('ImageColor', 'id','color_id');
+		return $this->hasOne('App\Models\ImageColor', 'id','color_id');
 	}
 
 	public function product(){
-		return $this->belongsTo('Product','id','product_id');
+		return $this->belongsTo('App\Models\Product','id','product_id');
 	}
 
 }

@@ -54,7 +54,7 @@ class PromosController extends Controller
             $slider = Promo::find($id);
             $slider->delete();
 
-            return Response::json(array('result'=>'true','message'=>'Promo Succesfully Deleted'));
+            return Response::json(array('result'=>'true','message'=>'Promo Successfully Deleted'));
         }catch(Exception $e){
             return Response::json(array('result'=>'false','message'=>'Server Error'));
         }
@@ -66,7 +66,7 @@ class PromosController extends Controller
             $article = Promo::find($id);
             $article->status = 1;
             $article->save();
-            return Response::json(array('result'=>'true', 'message'=>'Promo Succesfully Published!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Promo Successfully Published!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -79,7 +79,7 @@ class PromosController extends Controller
             $article = Promo::find($id);
             $article->status = 0;
             $article->save();
-            return Response::json(array('result'=>'true', 'message'=>'Promo Succesfully Unpublished!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Promo Successfully Unpublished!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }

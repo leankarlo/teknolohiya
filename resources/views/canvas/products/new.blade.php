@@ -1,6 +1,4 @@
-<!-- BEGIN EXAMPLE TABLE PORTLET-->
-<div class="form-horizontal form-row-seperated" action="#">
-	<div class="portlet light">
+<div class="portlet light">
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-basket font-green-sharp"></i>
@@ -14,72 +12,71 @@
 			</div>
 		</div>
 		<div class="portlet-body">
-			<div class="tabbable">
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a href="#tab_general" id="tab_general" data-toggle="tab">
+			<div class="tabbable" id="tabbable">
+				<ul class="nav nav-tabs producttabs">
+					<li class="active tab_general">
+						<a href="#tab_general" data-toggle="tab">
 						General </a>
 					</li>
-					<li>
-						<a href="#tab_category" id="tab_category" data-toggle="tab">
+					<li class="tab_category">
+						<a href="#tab_category" data-toggle="tab">
 						Category </a>
 					</li>
-					<li>
-						<a href="#tab_images" id="tab_images" data-toggle="tab">
+					<li class="tab_images">
+						<a href="#tab_images" data-toggle="tab">
 						Images </a>
 					</li>
 				</ul>
 				<div class="tab-content no-space">
 					<div class="tab-pane active" id="tab_general">
-						{!! Form::open(array('action' => 'Canvas\ProductController@create' ,'class'=>'form-horizontal form_product', 'id' => 'form_product', 'method'=>'post','files'=> 'true')) !!}
-						<div class="form-body">
-							<input type="hidden" class="form-control" name="product_id" id="product_id">
-							<div class="form-group">
-								<label class="col-md-2 control-label">Primary Image: <span class="required">
-								* </span>
-								</label>
-								<div class="col-md-10" id="displayImg">
-									<input type="input" class="form-control" name="image" id="image" placeholder="Input Image" readonly="true">
-									<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>
+						{!! Form::open(array('action' => 'Canvas\ProductController@Create' ,'class'=>'form-horizontal form_product', 'id' => 'form_product', 'method'=>'post','files'=> 'true')) !!}
+							<div class="form-body">
+								<input type="hidden" class="form-control" name="product_id" id="product_id">
+								<div class="form-group">
+									<label class="col-md-2 control-label">Primary Image: <span class="required">
+									* </span>
+									</label>
+									<div class="col-md-10" id="displayImg">
+										<input type="input" class="form-control" name="image" id="image" placeholder="Input Image" readonly="true">
+										<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Name: <span class="required">
+									* </span>
+									</label>
+									<div class="col-md-10">
+										<input type="text" class="form-control" name="product_name" id="product_name" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Description: <span class="required">
+									* </span>
+									</label>
+									<div class="col-md-10">
+										<textarea class="form-control" name="product_description" id="product_description"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Price: <span class="required">
+									* </span>
+									</label>
+									<div class="col-md-10">
+										<input type="text" class="form-control" name="product_price" id="product_price" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Status: <span class="required">
+									automatically set to not published on create mode. </span>
+									</label>
+									<div class="col-md-10">
+										<select class="table-group-action-input form-control input-medium" name="product_status" id="product_status">
+											<option value="0">Not Published</option>
+											<option value="1">Published</option>
+										</select>
+									</div>
 								</div>
 							</div>
-
-							<div class="form-group">
-								<label class="col-md-2 control-label">Name: <span class="required">
-								* </span>
-								</label>
-								<div class="col-md-10">
-									<input type="text" class="form-control" name="product_name" placeholder="">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">Description: <span class="required">
-								* </span>
-								</label>
-								<div class="col-md-10">
-									<textarea class="form-control" name="product_description"></textarea>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">Price: <span class="required">
-								* </span>
-								</label>
-								<div class="col-md-10">
-									<input type="text" class="form-control" name="product_price" placeholder="">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">Status: <span class="required">
-								automatically set to not published on create mode. </span>
-								</label>
-								<div class="col-md-10">
-									<select class="table-group-action-input form-control input-medium" name="product_status" id="product_status">
-										<option value="0">Not Published</option>
-										<option value="1">Published</option>
-									</select>
-								</div>
-							</div>
-						</div>
 						{!! Form::close() !!}
 					</div>
 					<div class="tab-pane" id="tab_category">
@@ -88,16 +85,18 @@
 							<i class="fa fa-warning fa-lg"></i> Products without category will still not appear on search or filters via category.
 						</div>
 						<div id="tab_images_uploader_container" class="text-align-reverse margin-bottom-10 form-group row">
-							<a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
-							<i class="fa fa-plus"></i> Add Category </a>
-							<select class="table-group-action-input input-medium" name="product_color">
-								<option value="0">Not Published</option>
-								<option value="1">Published</option>
+							<a id="tab_images_uploader_uploadfiles" href="#createNewCategory" class="btn green" data-toggle="modal">
+								<i class="fa fa-plus"></i> Create New Category 
+							</a>
+							<a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green" onclick="addSelectedCategory()">
+								<i class="fa fa-plus"></i> Add Category 
+							</a>
+							<select class="table-group-action-input input-medium" name="product_category" id="product_category">
 							</select>
 						</div>
-						<table class="table table-bordered table-hover">
+						<table class="table table-bordered table-hover" id="ProductCategoryTable">
 							<thead>
-								<tr role="row" class="heading">
+								<tr role="row" class="heading" >
 									<th width="70%">
 										 Name
 									</th>
@@ -107,24 +106,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>
-										Sample
-									</td>
-									<td>
-										<a href="javascript:;" class="btn default btn-sm">
-										<i class="fa fa-times"></i> Remove </a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Sample
-									</td>
-									<td>
-										<a href="javascript:;" class="btn default btn-sm">
-										<i class="fa fa-times"></i> Remove </a>
-									</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
@@ -188,4 +170,3 @@
 			</div>
 		</div>
 	</div>
-</div><!-- END EXAMPLE TABLE PORTLET-->

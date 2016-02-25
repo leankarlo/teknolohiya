@@ -120,7 +120,7 @@ class ContactController extends Controller
             $store = Contact::find($id);
             $store->delete();
 
-            return Response::json(array('result'=>'true','message'=>'Contact Succesfully Deleted'));
+            return Response::json(array('result'=>'true','message'=>'Contact Successfully Deleted'));
         }catch(Exception $e){
             return Response::json(array('result'=>'false','message'=>'Server Error'));
         }
@@ -132,7 +132,7 @@ class ContactController extends Controller
             $store = Contact::find($id);
             $store->isPublished = 1;
             $store->save();
-            return Response::json(array('result'=>'true', 'message'=>'Contact Succesfully Published!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Contact Successfully Published!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }
@@ -145,7 +145,7 @@ class ContactController extends Controller
             $store = Contact::find($id);
             $store->isPublished = 0;
             $store->save();
-            return Response::json(array('result'=>'true', 'message'=>'Contact Succesfully Unpublished!!'));
+            return Response::json(array('result'=>'true', 'message'=>'Contact Successfully Unpublished!!'));
         }catch(Exception $e){
             return Response::json(array('result'=>'fail', 'message'=>$e));
         }

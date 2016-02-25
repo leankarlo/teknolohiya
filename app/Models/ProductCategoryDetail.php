@@ -17,12 +17,12 @@ class ProductCategoryDetail extends Model
 
     public function product()
 	{
-		return $this->belongsTo('Product', 'product_id');
+		return $this->belongsTo('App\Models\Product', 'product_id');
 	}
 
 	public function productCategory()
 	{
-		return $this->belongsTo('ProductCategory', 'category_id');
+		return $this->belongsTo('App\Models\ProductCategory', 'category_id');
 	}
 	
 }

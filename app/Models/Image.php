@@ -15,4 +15,18 @@ class Image extends Model
 
     protected $table = 'images';
 
+    // Relationship between Images and Product Images
+	public function productImages()
+	{
+		return $this->belongTo('App\Models\ProductImage', 'image_id');
+	}
+
+	public function sliderImages(){
+		return $this->belongsTo('App\Models\Slider','image_id');
+	}
+
+	public function promoImages(){
+		return $this->belongsTo('App\Models\Promo','image_id');
+	}
+
 }
