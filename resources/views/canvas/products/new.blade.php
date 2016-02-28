@@ -130,16 +130,17 @@
 						<table class="table table-bordered table-hover" id="ProductImageTable">
 							<thead>
 								<tr role="row" class="heading">
-									<th width="8%">
+									<th width="10%">
 										 Image
 									</th>
-									<th width="25%">
+									<th width="40%">
 										 Label
 									</th>
-									<th width="28%">
+									<th width="40%">
 										 Color
 									</th>
-									<th width="20%">
+									<th width="10%">
+										Action
 									</th>
 								</tr>
 							</thead>

@@ -539,7 +539,7 @@ var Canvas = function() {
                     $.each(modules, function (idx, module) {
                         var sub_module_id = 'sub-menu-' + module.id
                         var baseUrl = module.url;
-                        $(".page-sidebar-menu").append('<li>'
+                        $("#page-sidebar-menu").append('<li>'
                                     + '    <a href="javascript:;">'
                                     + '    <i class="'+module.icon_class+'"></i>'
                                     + '    <span class="title">'+module.name+'</span>'

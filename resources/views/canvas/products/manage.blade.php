@@ -46,19 +46,43 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption">
-						<i class="icon-notebook"></i>Actions
-					</div>
-				</div>
-				<div class="portlet-body form">
-					<div class="btn-group-vertical btn-group-solid">
-						<button type="button" class="btn blue btn-lg" data-toggle="modal" href="#createProduct" id="AddProduct" onclick="DisableSubmitToEditButton()">Add Product</button>
-						<button type="button" class="btn green btn-lg" id="PublishProduct" onclick="PublishProduct()">Publish Selected</button>
-						<button type="button" class="btn yellow btn-lg" id="UnPublishProduct" onclick="UnPublishProduct()">Unpublish Selected</button>
-						<button type="button" class="btn red btn-lg" id="DeleteMuntipleProduct" onclick="DeleteMuntipleProduct()">Delete Selected</button>
-					</div>
+			<div class="page-sidebar-wrapper">
+				
+				<div class="page-sidebar md-shadow-z-2-i  navbar-collapse collapse">
+					<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+						<li>
+							<a data-toggle="modal" href="#createProduct" id="AddProduct" onclick="DisableSubmitToEditButton()">
+								<i class="icon-basket-loaded"></i>
+								Add Product
+							</a>
+						</li>
+						<li>
+							<a data-toggle="modal" href="#" id="UnPublishProduct" onclick="UnPublishProduct()">
+								<i class="icon-book-open"></i>
+								Publish Selected
+							</a>
+						</li>
+						<li>
+							<a data-toggle="modal" href="#" id="AddProduct" onclick="DisableSubmitToEditButton()">
+								<i class="icon-ban"></i>
+								Unpublish Selected
+							</a>
+						</li>
+						<li>
+							<a data-toggle="modal" href="#" id="DeleteMuntipleProduct" onclick="DeleteMuntipleProduct()">
+								<i class="icon-trash"></i>
+								Delete Selected
+							</a>
+						</li>
+						<li>
+							<a data-toggle="modal" href="#categoryLevelManagement" id="CategoryLevelManagement">
+								<i class="icon-list"></i>
+								Category Level Management
+							</a>
+						</li>
+			
+					</ul>
+					<!-- END SIDEBAR MENU -->
 				</div>
 			</div>
 		</div>
@@ -76,6 +100,8 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+	
+	@include('canvas.products._categorymanage')
 
 	@include('canvas.modals.selectimagemodal')
 
@@ -167,6 +193,8 @@
 	</div>
 	<!-- /.modal -->
 
+	
+
 @endsection
 
 
@@ -181,11 +209,13 @@
 	<script type="text/javascript" src="{{ asset('packages/dropzone/dropzone.js')}}"></script>
 	<script src="{{ asset('js/admin/pages/products/manage.js')}}"></script>
 	<script src="{{ asset('js/admin/pages/products/ProductCreate.js')}}"></script>
+	<script src="{{ asset('js/admin/pages/products/categorymanagement.js')}}"></script>
 
 	<script>
 	jQuery(document).ready(function() {   
 	   Products.init();
 	   ProductCreate.init();
+	   Category.init();
 	   ProductCreate.initCategory();
 	   ImageSelection.initImages();
 	   ProductCreate.initAddImages();

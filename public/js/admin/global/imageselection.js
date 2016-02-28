@@ -14,7 +14,7 @@ var ImageSelection = function () {
                         sortable: false,
                         "render": function ( data, type, image, meta ) {
                             var image_url = image.url;
-                            return '<img src="'+image_url+'" style="width: 150px;">';
+                            return '<img src="'+image_url+'" style="width: 150px;height:150px;overflow:hidden !important;">';
                         }
                     },
                     { "data": "url" },

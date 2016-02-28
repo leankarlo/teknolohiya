@@ -286,6 +286,10 @@
 			    	return view('canvas/products/manage');
 				});
 
+				Route::get('/categorymanage', function () {
+			    	return view('canvas/products/categorymanage');
+				});
+
 				Route::get('/getall','Canvas\ProductController@ShowAll');
 
 				Route::post('/create', 'Canvas\ProductController@Create');
