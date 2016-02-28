@@ -290,23 +290,47 @@
 
 				Route::post('/create', 'Canvas\ProductController@Create');
 
+				Route::post('/update', 'Canvas\ProductController@Update');
+
 				Route::get('/get&id={id}','Canvas\ProductController@GetProduct');
 
-				Route::group(array('prefix'=>'category'), function(){
+				Route::get('/delete&id={id}','Canvas\ProductController@DeleteProduct');
 
-					Route::get('/get&id={id}','Canvas\ProductController@GetProductCategory');
+				Route::get('/publish&id={id}','Canvas\ProductController@PublishProduct');
 
-					Route::get('/getall','Canvas\ProductController@LoadCategorySelection');
+				Route::get('/unpublish&id={id}','Canvas\ProductController@UnPublishProduct');
 
-					Route::get('/delete&id={id}','Canvas\ProductController@DeleteProductCategory');
+				/** Product Category **/
+					Route::group(array('prefix'=>'category'), function(){
+	
+						Route::get('/get&id={id}','Canvas\ProductController@GetProductCategory');
+	
+						Route::get('/getall','Canvas\ProductController@LoadCategorySelection');
+	
+						Route::get('/delete&id={id}','Canvas\ProductController@DeleteProductCategory');
+	
+						Route::get('/add&id={id}&product_id={product_id}','Canvas\ProductController@AddProductCategory');
+	
+						Route::get('/create_new&name={name}','Canvas\ProductController@CreateNewCategory');
+	
+					});
+				/** END Product Category **/
 
-					Route::get('/add&id={id}&product_id={product_id}','Canvas\ProductController@AddProductCategory');
+				/** Product Image **/
+					Route::group(array('prefix' => 'image'), function(){
+	
+						Route::get('/get&id={id}', 'Canvas\ProductController@GetProductImage');
 
-					Route::get('/create_new&name={name}','Canvas\ProductController@CreateNewCategory');
+						Route::get('/color/getall','Canvas\ProductController@LoadColorSelection');
 
-				});
+						Route::get('/delete&id={id}','Canvas\ProductController@DeleteProductImage');
 
+						Route::get('/color/update&id={id}&color_id={color_id}','Canvas\ProductController@SaveProductImageColor');
 
+						Route::get('/create&id={id}&product_id={product_id}','Canvas\ProductController@SaveProductImage');
+	
+					});
+				/** END Product Image **/
 
 			});
 		/** END Product Module **/

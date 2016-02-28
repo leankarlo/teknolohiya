@@ -8,7 +8,7 @@
 			<div class="actions btn-set">				
 				<button class="btn green-haze" id="submit"><i class="fa fa-check"></i> Save</button>
 				<button class="btn green-haze" id="submitAndContinue"><i class="fa fa-check-circle"></i> Save & Continue Edit</button>
-				<button class="btn btn-warning deleteBtn" id="delete"><i class="fa fa-trash"></i> Delete</button>
+				<!-- <a class="btn btn-danger deleteBtn" id="deleteProductAlert" onclick="DeleteProductAlert()"><i class="fa fa-trash"></i> Delete</a> -->
 			</div>
 		</div>
 		<div class="portlet-body">
@@ -117,7 +117,7 @@
 						</div>
 						<div id="tab_images_uploader_container" class="text-align-reverse margin-bottom-10">
 							
-							<a id="tab_images_uploader_pickfiles" href="javascript:;" class="btn yellow">
+							<a id="tab_images_uploader_pickfiles" href="#imageAddModal" onclick="ReloadImageSelection()" data-toggle="modal" class="btn yellow">
 							<i class="fa fa-plus"></i> Select Image </a>
 
 							<!-- <a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
@@ -127,7 +127,7 @@
 							<div id="tab_images_uploader_filelist" class="col-md-6 col-sm-12">
 							</div>
 						</div>
-						<table class="table table-bordered table-hover">
+						<table class="table table-bordered table-hover" id="ProductImageTable">
 							<thead>
 								<tr role="row" class="heading">
 									<th width="8%">
@@ -144,26 +144,6 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>
-										<a href="../../assets/admin/pages/media/works/img1.jpg" class="fancybox-button" data-rel="fancybox-button">
-										<img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="" height="100px" width="100px">
-										</a>
-									</td>
-									<td>
-										<a>Red</a>
-									</td>
-									<td>
-										<select class="table-group-action-input form-control input-medium" name="product[status]">
-											<option value="0">Not Published</option>
-											<option value="1">Published</option>
-										</select>
-									</td>
-									<td>
-										<a href="javascript:;" class="btn default btn-sm">
-										<i class="fa fa-times"></i> Remove </a>
-									</td>
-								</tr>
 							</tbody>
 						</table>
 					</div>

@@ -21,7 +21,8 @@ var ProductCreate = function () {
                 },
                 product_price: {
                     minlength: 1,
-                    required: true
+                    required: true,
+                    number: true
                 }
             },
 
@@ -65,8 +66,9 @@ var ProductCreate = function () {
                         {
                             toastr.clear();
                             toastr.success('Succefull',data.id);
-                            $('#product_id').val(data.id);
+                            loadProductForEditing(data.id);
                             EnableSubmitToEditButton();
+                            $('#Table').DataTable().ajax.reload();
                         },
                         error: function(jqXHR, textStatus, errorThrown) 
                         {
@@ -134,6 +136,63 @@ var ProductCreate = function () {
             });
         },
 
+        initColor: function(){
+            //color select
+            var url = '../../../../../canvas/products/image/color/getall'
+            $.ajax({
+                url: url,
+                async: false,
+                type: "get",
+                success: function (result) {
+                    if(result.result == 'true'){
+
+                        var options ='';
+                        $.each(result.data, function(index, item) {
+                            options += "<option value='" + item.id + "'>" + item.name + "</option>";
+                        });
+                        // $("#product_category").html(options);
+    
+                    }
+                    else{
+                        toastr.error(result.message, result.result);
+                    }
+                    
+                },
+                error: function () {
+                    toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+                }
+            });
+        },
+
+        initAddImages: function (els) {
+            $('#ImageAddTable').DataTable( {
+                "ajax": "../../../../../canvas/images/show",
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "columns": [
+                    {
+                        sortable: false,
+                        "render": function ( data, type, image, meta ) {
+                            var image_url = image.url;
+                            return '<img src="'+image_url+'" style="width: 150px;">';
+                        }
+                    },
+                    { "data": "url" },
+                    {
+                        sortable: false,
+                        "render": function ( data, type, image, meta ) {
+                            var img_url = image.url;
+                            img_url = "'" + img_url + "'";
+                            var content = '<a data-dismiss="modal"  onclick="SaveImage('+image.id+')" class="btn btn-success" >Select</a>';
+                            return content;
+                        }
+                    },
+                ]
+            } );
+        },
+
     };
 }();
 
@@ -144,12 +203,25 @@ $(document).ready(function() {
         $('#form_product').submit();
     }); 
 
+    $("#submitAndContinue").click( function() {
+        $('#form_product').submit();
+    }); 
+
     //functions
     window.DisableSubmitToEditButton = function(){
         $('#submitAndContinue').prop("disabled",true);
+        $('#submit').prop("disabled",false);
         $('#delete').prop("disabled",true);
         $( ".tabbable" ).tabs();
         $( ".tabbable" ).tabs("option", 'disabled', [1,2]);
+        $('#form_product').prop('action', '../../../../../../../../../canvas/products/create');
+        $('#ProductCategoryTable').DataTable().ajax.reload();
+        $('#ProductImageTable').DataTable().ajax.reload();
+
+        if($('#product_id').val() != null || $('#product_id').val() == ''){
+            clear();
+        }
+        // $('#producttabs').tabs({ selected: 0 });
     }
 
     window.EnableSubmitToEditButton = function(){
@@ -158,6 +230,7 @@ $(document).ready(function() {
         $('#delete').prop("disabled",false);
         $( ".tabbable" ).tabs();
         $( ".tabbable" ).tabs("enable");
+        $('#form_product').prop('action', '../../../../../../../../../canvas/products/update');
     }
 
     window.clear = function(){
@@ -165,6 +238,13 @@ $(document).ready(function() {
         $('#product_name').val("");
         $('#product_description').val("");
         $('#product_price').val("");
+        
+        var img =   '<input type="input" class="form-control" name="image" id="image" placeholder="Input Image" readonly="true">'
+                    + '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>';
+                        $("#displayImg").html(img);
+
+        $('#ProductCategoryTable').DataTable().clear().draw();
+        $('#ProductImageTable').DataTable().clear().draw();
     }
 
     window.ReturnParam = function(sParam){
@@ -180,6 +260,8 @@ $(document).ready(function() {
     }
 
     window.loadProductForEditing = function(id){
+        clear();
+
         var url = '../../../../../canvas/products/get&id='+id
 
         $.ajax({
@@ -199,12 +281,15 @@ $(document).ready(function() {
                         var url = result.data.image.url;
                         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
                         + '<input type="hidden" class="form-control" name="image" id="image" placeholder="Enter text" readonly="true" value="'+result.data.image.id+'">'
-                        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>';
+                        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>'
+                        +  '<a class="btn btn-danger" onclick="removeImage()">Remove Primary Photo </a>';
                         $("#displayImg").html(img);
                     }
                     $('#ProductCategoryTable').DataTable().destroy();
+                    $('#ProductImageTable').DataTable().destroy();
                     loadProductCategory(result.data.id);
                     loadProductImage(result.data.id);
+                    EnableSubmitToEditButton();
                 }
                 else{
                     toastr.error(result.message, result.result);
@@ -237,15 +322,11 @@ $(document).ready(function() {
                 },
             ]
         } );
-        $('#ProductCategoryTable').DataTable().ajax.reload();
+        // $('#ProductCategoryTable').DataTable().ajax.reload();
     }
 
-    window.loadProductImage = function(id){
-        
-    }
-
-    window.deleteItem = function($id){
-        var url = '../../../../../canvas/products/category/delete&id='+$id
+    window.deleteItem = function(id){
+        var url = '../../../../../canvas/products/category/delete&id='+id
         $.ajax({
             url: url,
             async: false,
@@ -272,7 +353,7 @@ $(document).ready(function() {
         var product_id = $('#product_id').val();
 
         var url = '../../../../../canvas/products/category/add&id='+id+'&product_id='+product_id;
-        console.log(url);
+
         $.ajax({
             url: url,
             async: false,
@@ -316,5 +397,182 @@ $(document).ready(function() {
         ProductCreate.initCategory();
     }
 
+    window.loadProductImage = function(id){
+        console.log('start');
+        $('#ProductImageTable').DataTable( {
+            "ajax": "../../../../../canvas/products/image/get&id="+id,
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            "columns": [
+                {
+                    sortable: false,
+                    "render": function ( data, type, result, meta ) {
+                        var image_url = result.image.url;
+                                var imgHtml = '<a src="'+image_url+'" class="fancybox-button" data-rel="fancybox-button">'
+                                + '<img class="img-responsive" src="'+image_url+'" alt="" height="100px" width="100px" style="width:100px!important;">'
+                                + '</a>'
+                        return imgHtml;
+                    }
+                },
+                {   "data": "image.filename",
+                    sortable: true 
+                },
+                {
+                    sortable: false,
+                    "render": function ( data, type, result, meta ) {
+                        var selected = result.image_color.id;
+                        var options ='';
+
+                        var url = '../../../../../canvas/products/image/color/getall'
+                        $.ajax({
+                            url: url,
+                            async: false,
+                            type: "get",
+                            success: function (result) {
+                                if(result.result == 'true'){
+            
+                                    $.each(result.data, function(index, item) {
+                                        if(selected == item.id){
+                                            options += "<option selected value='" + item.id + "'>" + item.name + "</option>";
+                                        }else{
+                                            options += "<option value='" + item.id + "'>" + item.name + "</option>";
+                                        }
+                                    });
+                
+                                }
+                                else{
+                                    toastr.error(result.message, result.result);
+                                }
+                                
+                            },
+                            error: function () {
+                                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+                            }
+                        });
+
+                        var select = '<select class="table-group-action-input form-control input-medium" onchange="SaveImageColor('+result.id+')" id="imageColor_'+result.id+'">'
+                                     + options
+                                     + '</select>';
+                        return select;
+                    }
+                },
+                {
+                    sortable: false,
+                    "render": function ( data, type, result, meta ) {
+                        var content = '<a onclick="alert('+result.id+',\' Are you sure you want to REMOVE this Image ( '+result.image.filename+' ) ? \', \'deleteImage\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>';
+                        return content;
+                    }
+                },
+            ]
+        } );
+        console.log('End');
+    }
+
+    window.deleteImage = function(id){
+        var url = '../../../../../canvas/products/image/delete&id='+id
+        $.ajax({
+            url: url,
+            async: false,
+            type: "get",
+            success: function (data) {
+                if(data.result == 'true'){
+                    toastr.success('Succesfull', data.result);
+                }
+                else{
+                    toastr.error('Succesfull', data.result);
+                }
+                
+            },
+            error: function () {
+                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+            }
+        });
+
+        $('#ProductImageTable').DataTable().ajax.reload();
+    }
+
+    window.SaveImageColor = function(id){
+        var color_id = $('#imageColor_'+id).val();
+
+        var url = '../../../../../../canvas/products/image/color/update&id='+id+'&color_id='+color_id
+        $.ajax({
+            url: url,
+            async: false,
+            type: "get",
+            success: function (data) {
+                if(data.result == 'true'){
+                    toastr.success('Succesfull', data.result);
+                }
+                else{
+                    toastr.error('Succesfull', data.result);
+                }
+                
+            },
+            error: function () {
+                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+            }
+        });
+
+        $('#ProductImageTable').DataTable().ajax.reload();
+    }
+
+    window.SaveImage = function(id){
+        var product_id = $('#product_id').val();
+
+        var url = '../../../../../../canvas/products/image/create&id='+id+'&product_id='+product_id
+        $.ajax({
+            url: url,
+            async: false,
+            type: "get",
+            success: function (data) {
+                if(data.result == 'true'){
+                    toastr.success('Succesfull', data.result);
+                }
+                else{
+                    toastr.error('Succesfull', data.result);
+                }
+                
+            },
+            error: function () {
+                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+            }
+        });
+
+        $('#ProductImageTable').DataTable().ajax.reload();
+    }
+
+    window.ReloadImageSelection = function(){
+        $('#ImageAddTable').DataTable().ajax.reload();
+    }
+
+    window.DeleteProductAlert = function(){
+        var id = $('#product_id').val();
+        var test = alert(id,'Are you sure you want to REMOVE this Product?', 'DeleteProduct' );
+    }
+
+    window.DeleteProduct = function(id){
+        var url = '../../../../../canvas/products/delete&id='+id;
+        $.ajax({
+            url: url,
+            async: false,
+            type: "get",
+            success: function (data) {
+                if(data.result == 'true'){
+                    toastr.success('Succesfull', data.result);
+                }
+                else{
+                    toastr.error('Succesfull', data.result);
+                }
+                
+            },
+            error: function () {
+                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+            }
+        });
+
+        $('#ProductImageTable').DataTable().ajax.reload();
+    }
 } );// END Ducement Ready
 

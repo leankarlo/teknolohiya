@@ -126,7 +126,8 @@ var Article = function () {
                         var url = json.data.featured_image.url;
                         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
                         + '<input type="hidden" class="form-control" name="image" id="image" placeholder="Enter text" readonly="true" value="'+json.data.featured_image.id+'">'
-                        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="image_selection()">Select a Primary Photo </a>';
+                        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="image_selection()">Select a Primary Photo </a>'
+                        +  '<a class="btn btn-danger" onclick="removeImage()">Remove Primary Photo </a>';
                         $("#displayImg").html(img);
                     }
                 },

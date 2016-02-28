@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Canvas;
 use App\Models\Product;
 use App\Models\ProductCategoryDetail;
 use App\Models\ProductCategory;
+use App\Models\ProductImage;
+use App\Models\ImageColor;
 use Redirect;
 use View;
 use Response;
@@ -65,7 +67,7 @@ class ProductController extends Controller
 
         try{
 
-            $product                    = Product::find($input['id']);
+            $product                    = Product::find($input['product_id']);
             $product->name              = $input['product_name'];
             $product->description       = $input['product_description'];
             $product->price             = $input['product_price'];
@@ -115,7 +117,6 @@ class ProductController extends Controller
         catch(Exception $e){
             return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
         }
-        
     }
 
     protected function AddProductCategory($id, $product_id){
@@ -142,6 +143,111 @@ class ProductController extends Controller
         }
         catch(Exception $e){
             return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
+        }
+    }
+
+    protected function GetProductImage($id){
+        $productCategories = ProductImage::with('image')->with('imageColor')->where('product_id',$id)
+        ->get();
+        if($productCategories){
+            return Response::json(array('result' => 'true', 'message' => 'successfull', 'data' => $productCategories ));
+        }else{
+            return Response::json(array('result' => 'false', 'message' => 'no data' ));
+        }
+    }
+
+    protected function LoadColorSelection(){
+        $imageColor = ImageColor::all();
+        if($imageColor){
+            return Response::json(array('result' => 'true', 'message' => 'successfull', 'data' => $imageColor ));
+        }else{
+            return Response::json(array('result' => 'false', 'message' => 'no data' ));
+        }
+    }
+
+    protected function DeleteProductImage($id){
+        try{
+            $productImage = ProductImage::find($id);
+            $productImage->delete();
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully deleted.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
+        }
+        
+    }
+
+    protected function SaveProductImageColor($id, $color_id){
+        try{
+            $imageColor = ProductImage::find($id);
+            $imageColor->color_id = $color_id;
+            $imageColor->save();
+
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully deleted.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
+        }
+    }
+
+    protected function SaveProductImage($id, $product_id){
+        try{
+            $image = new ProductImage;
+            $image->image_id = $id;
+            $image->product_id = $product_id;
+            $image->save();
+
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully deleted.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
+        }
+    }
+
+    protected function DeleteProduct($id){
+        try{
+            $productCategoryDetail = ProductCategoryDetail::where('product_id',$id)->delete();
+
+            $productImage = ProductImage::where('product_id',$id)->delete();
+
+            $product = Product::find($id);
+            $product->delete();
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully deleted.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on deleting category.', 'data' => $e ));
+        }
+    }
+
+    protected function UnPublishProduct($id){
+        try{
+
+            $product = Product::find($id);
+            $product->isPublished = 0;
+            $product->save();
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully Updated.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on updating product.', 'data' => $e ));
+        }
+    }
+
+    protected function PublishProduct($id){
+        try{
+
+            $product = Product::find($id);
+            $product->isPublished = 1;
+            $product->save();
+
+            return Response::json(array('result' => 'true', 'message' => 'Successfully Updated.' ));
+        }
+        catch(Exception $e){
+            return Response::json(array('result' => 'false', 'message' => 'Error on updating product.', 'data' => $e ));
         }
     }
 

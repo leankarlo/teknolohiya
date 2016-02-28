@@ -1,9 +1,9 @@
-var ImageSelection = function () {
+var MultipleImageSelection = function () {
     
     return {
 
-        initImages: function (els) {
-            $('#imageTable').DataTable( {
+        initAddImages: function (els) {
+            $('#imageAddTable').DataTable( {
                 "ajax": "../../../../../canvas/images/show",
                 "lengthMenu": [
                     [5, 15, 20, -1],
@@ -25,7 +25,7 @@ var ImageSelection = function () {
                             img_url = "'" + img_url + "'";
                             // var content = '<a   href="#" class="btn " >Edit</a>'
                                         // + '<a onclick="notifyDelete('+image.id+')" data-toggle="modal" href="#alert" class="btn btn-danger deleteBtn" >Delete</a>'
-                            var content = '<a data-dismiss="modal"  onclick="selectImage('+image.id+','+img_url+')" class="btn btn-success" >Select</a>';
+                            var content = '<a data-dismiss="modal"  onclick="addImage('+image.id+','+img_url+')" class="btn btn-success" >Select</a>';
                             return content;
                         }
                     },
@@ -41,26 +41,20 @@ $(document).ready(function() {
 
     //functions
     window.refreshTable = function(){
-                $('#image_selection').DataTable().ajax.reload();
+                $('#imageAddTable').DataTable().ajax.reload();
                 console.log("refresh")
             }
 
-    window.loadImageTable = function(){
-        $('#imageTable').DataTable().ajax.reload();
+    window.loadMultipleImageTable = function(){
+        $('#imageAddTable').DataTable().ajax.reload();
+        
     }
 
-    window.selectImage = function(id,url){
+    window.addImage = function(id,url){
         var img = '<img alt="Image" id="display" src="' + window.location.origin + '/' + url + '" style="width: 125px;" class="logo-default" />'
         + '<input type="hidden" class="form-control" name="image" id="image" placeholder="Input Image"" readonly="true" value="'+id+'">'
         +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>'
         +  '<a class="btn btn-danger" onclick="removeImage()">Remove Primary Photo </a>';
-        $("#displayImg").html(img);
-        console.log(id + ' - ' + url + ' - ' + img);
-    }
-
-    window.removeImage = function(){
-        var img = '<input type="input" class="form-control" name="image" id="image" placeholder="Input Image"" readonly="true" >'
-        +  '<a class="btn default" data-toggle="modal" href="#image_selection" onclick="loadImageTable()">Select a Primary Photo </a>';
         $("#displayImg").html(img);
         console.log(id + ' - ' + url + ' - ' + img);
     }

@@ -26,5 +26,3 @@ class ImageColor extends Model
 		return $this->belongsTo('App\Models\ProductImage','color_id');
 	}
 }
-
-}

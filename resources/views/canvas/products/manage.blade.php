@@ -35,7 +35,8 @@
 								</th>
 								<th width="20%">Image</th>
 								<th width="35%">Product Name</th>
-                            	<th width="40%">Action</th>
+								<th width="20%">Status</th>
+                            	<th width="20%">Action</th>
                             </tr>
 						</thead>
 						<tbody id="table_body">
@@ -54,8 +55,9 @@
 				<div class="portlet-body form">
 					<div class="btn-group-vertical btn-group-solid">
 						<button type="button" class="btn blue btn-lg" data-toggle="modal" href="#createProduct" id="AddProduct" onclick="DisableSubmitToEditButton()">Add Product</button>
-						<button type="button" class="btn green btn-lg" id="PublishProduct" >Publish</button>
-						<button type="button" class="btn red btn-lg" id="UnPublishProduct" >Unpublish</button>
+						<button type="button" class="btn green btn-lg" id="PublishProduct" onclick="PublishProduct()">Publish Selected</button>
+						<button type="button" class="btn yellow btn-lg" id="UnPublishProduct" onclick="UnPublishProduct()">Unpublish Selected</button>
+						<button type="button" class="btn red btn-lg" id="DeleteMuntipleProduct" onclick="DeleteMuntipleProduct()">Delete Selected</button>
 					</div>
 				</div>
 			</div>
@@ -115,6 +117,56 @@
 	</div>
 	<!-- /.modal -->
 
+	<!-- /.modal -->
+	<div class="modal fade bs-modal-lg" id="imageAddModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Select an Image</h4>
+				</div>
+				<div class="modal-body">
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet box grey-cascade">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-globe"></i>Image Table
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="reload" data-original-title="" title="" onclick="refreshTable()">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-toolbar">
+						
+							</div>
+							<table class="table table-striped table-bordered table-hover" id="ImageAddTable">
+								<thead>
+									<tr>
+										<th>Image</th>
+                            	  		<th>URL</th>
+                            	  		<th>Actions</th>
+                            	  	</tr>
+								</thead>
+								<tbody id="table_body">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn default" data-dismiss="modal" data-toggle="modal" href="#uploadImage">Upload</button>
+					<button type="button" class="btn default" data-dismiss="modal" >Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
 @endsection
 
 
@@ -136,6 +188,7 @@
 	   ProductCreate.init();
 	   ProductCreate.initCategory();
 	   ImageSelection.initImages();
+	   ProductCreate.initAddImages();
 	});
 	</script>
 

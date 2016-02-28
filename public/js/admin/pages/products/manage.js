@@ -33,15 +33,20 @@ var Products = function () {
                     { "data": "name" },
                     {
                         "render": function ( data, type, data, meta ) {
-                            var _statusAction = '<a onclick="alert('+data.id+',\' Are you sure you want to UNPUBLISHED this ('+data.name+') ? \', \'deactivate\' )" data-toggle="modal" href="#messageAlert" class="btn btn-warning deleteBtn" >Unpublish</a>';
+                            var _statusAction = '<a  data-toggle="modal" href="#" class="btn btn-warning deleteBtn" >Unpublish</a>';
 
-                            if(data.isPublished == 0){
-                                _statusAction = '<a onclick="alert('+data.id+',\' Are you sure you want to PUBLISH this ('+data.name+') ? \', \'activate\' )" data-toggle="modal" href="#messageAlert" class="btn btn-success" >Publish</a>'
+                            if(data.isPublished == 1){
+                                _statusAction = '<a  data-toggle="modal" href="#" class="btn btn-success" >Publish</a>'
                             }
 
-                            var content = '<a   href="#createProduct" data-toggle="modal" onclick="loadProductForEditing('+data.id+')" class="btn " >Edit</a>'
-                                        + _statusAction
+                            var content = _statusAction
                                         ;
+                            return content;
+                        }
+                    },
+                    {
+                        "render": function ( data, type, data, meta ) {
+                            var content = '<a   href="#createProduct" data-toggle="modal" onclick="loadProductForEditing('+data.id+')" class="btn " >Edit</a>';
                             return content;
                         }
                     }
@@ -82,51 +87,91 @@ var Products = function () {
 }();
 
 $(document).ready(function() {
+    //ACTIONS
+
 
     // functions
-    window.deactivate = function($id){
-        var url = '../../../../../canvas/articles/unpublish&id='+$id
-        $.ajax({
-            url: url,
-            async: false,
-            type: "get",
-            success: function (data) {
-                if(data.result == 'true'){
-                    toastr.success(data.message, data.result);
+    window.UnPublishProduct = function(){
+        var table = $('#Table').DataTable();
+        var sData = table.rows('.active').data();
+
+        $.each(sData, function(index, item) {
+            var url = '../../../../../canvas/products/unpublish&id='+item.id
+            $.ajax({
+                url: url,
+                async: false,
+                type: "get",
+                success: function (data) {
+                    if(data.result == 'true'){
+                        toastr.success(data.message, data.result);
+                    }
+                    else{
+                        toastr.error(data.message, data.result);
+                    }
+                    
+                },
+                error: function () {
+                    toastr.error('Something went wrong please contact ADMIN', 'ERROR');
                 }
-                else{
-                    toastr.error(data.message, data.result);
-                }
-                
-            },
-            error: function () {
-                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
-            }
+            });
         });
 
         $('#Table').DataTable().ajax.reload();
     }
 
-    window.activate = function($id){
-        var url = '../../../../../canvas/articles/publish&id='+$id
-        $.ajax({
-            url: url,
-            async: false,
-            type: "get",
-            success: function (data) {
-                if(data.result == 'true'){
-                    toastr.success(data.message, data.result);
-                }
-                else{
-                    toastr.error(data.message, data.result);
-                }
-                
-            },
-            error: function () {
-                toastr.error('Something went wrong please contact ADMIN', 'ERROR');
-            }
-        });
+    window.PublishProduct = function(){
+        var table = $('#Table').DataTable();
+        var sData = table.rows('.active').data();
 
+        $.each(sData, function(index, item) {
+            var url = '../../../../../canvas/products/publish&id='+item.id
+            $.ajax({
+                url: url,
+                async: false,
+                type: "get",
+                success: function (data) {
+                    if(data.result == 'true'){
+                        toastr.success(data.message, data.result);
+                    }
+                    else{
+                        toastr.error(data.message, data.result);
+                    }
+                    
+                },
+                error: function () {
+                    toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+                }
+            });
+        });
+        
+        $('#Table').DataTable().ajax.reload();
+    }
+
+    window.DeleteMuntipleProduct = function(){
+        var table = $('#Table').DataTable();
+        var sData = table.rows('.active').data();
+
+        $.each(sData, function(index, item) {
+            var url = '../../../../../canvas/products/delete&id='+item.id
+            $.ajax({
+                url: url,
+                async: false,
+                type: "get",
+                success: function (data) {
+                    if(data.result == 'true'){
+                        toastr.success(data.message, data.result);
+                    }
+                    else{
+                        toastr.error(data.message, data.result);
+                    }
+                    
+                },
+                error: function () {
+                    toastr.error('Something went wrong please contact ADMIN', 'ERROR');
+                }
+            });
+        });
+        
         $('#Table').DataTable().ajax.reload();
     }
 
