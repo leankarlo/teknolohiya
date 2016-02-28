@@ -9,9 +9,9 @@ var Manage = function () {
                         "render": function ( data, type, user, meta ) {
                             if(user.image != null){
                             	var image_url = user.image.url;
-                            	return '<img src="'+image_url+'" style="width: 50px;">';
+                            	return '<img src="'+image_url+'" style="width:100px;height:100px;overflow:hidden !important;">';
                             }else{
-                            	return '<img src="/uploads/images/default_image.png" style="width: 50px;">';
+                            	return '<img src="/uploads/images/default_image.png" style="width:100px;height:100px;overflow:hidden !important;">';
                             }
                             
                         }

@@ -21,7 +21,7 @@ var Products = function () {
                             if(data.image != null){
                                 var image_url = data.image.url;
                                 var imgHtml = '<a src="'+image_url+'" class="fancybox-button" data-rel="fancybox-button">'
-                                + '<img class="img-responsive" src="'+image_url+'" alt="" height="100px" width="100px">'
+                                + '<img class="img-responsive" src="'+image_url+'" style="width:100px;height:100px;overflow:hidden !important;">'
                                 + '</a>'
                                 return imgHtml;
                             }

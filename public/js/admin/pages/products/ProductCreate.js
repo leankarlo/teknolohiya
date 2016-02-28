@@ -411,7 +411,7 @@ $(document).ready(function() {
                     "render": function ( data, type, result, meta ) {
                         var image_url = result.image.url;
                                 var imgHtml = '<a src="'+image_url+'" class="fancybox-button" data-rel="fancybox-button">'
-                                + '<img class="img-responsive" src="'+image_url+'" alt="" height="100px" width="100px" style="width:100px!important;">'
+                                + '<img class="img-responsive" src="'+image_url+'" style="width:100px;height:100px;overflow:hidden !important;">'
                                 + '</a>'
                         return imgHtml;
                     }
