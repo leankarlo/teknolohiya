@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategoryDetail;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
+use App\Models\ProductCategoryLevel;
 use App\Models\ImageColor;
 use Redirect;
 use View;
@@ -96,6 +97,83 @@ class ProductController extends Controller
             return Response::json(array('result' => 'false', 'message' => 'no data' ));
         }
         
+    }
+
+    protected function GetProductCategoryLevel(){
+
+        $productCategories = ProductCategoryLevel::with('ProductCategory')->orderBy('position')->get();
+
+        if($productCategories){
+            return Response::json(array('result' => 'true', 'message' => 'successfull', 'data' => $productCategories ));
+        }else{
+            return Response::json(array('result' => 'false', 'message' => 'no data' ));
+        }
+        
+    }
+
+    public function UpdateLevel(Request $request){
+        
+        // INITIALIZATION
+        $input = $request->all();
+        try{
+            $isParent = 0;
+            $categoryMenu = ProductCategoryLevel::find($input['child']);
+            $categoryMenu->parent_id = $input['parent'];
+
+            if($input['parent'] != 0)
+            {
+                $isParent = 1;
+            }
+
+            $categoryMenu->isParent = 0;
+            $categoryMenu->position = $input['position'];
+            $categoryMenu->save();
+
+            if($input['parent'] != 0)
+            {
+                $parent = ProductCategoryLevel::find($input['parent']);
+                $parent->isParent = 1;
+                $parent->save();
+            }
+            
+
+            return Response::json(array('result'=>'Success', 'message'=>'Category Menu has been Updated'));
+        }
+        catch(Exception $e)
+        {
+            return Response::json(array('result'=>'Failed', 'message'=>$e));
+        }
+        
+    }
+
+    public function DeleteCategoryLevel($id){
+        try{
+            $categoryMenu = ProductCategoryLevel::find($id);
+            if($categoryMenu->isParent == 1){
+                return Response::json(array('result'=>'Failed', 'message'=>'Category must not have child level!!</br>REMOVE CHILD FIRST!!!'));
+            }else{
+                $categoryMenu->delete();
+                return Response::json(array('result'=>'Success', 'message'=>'Category was removed!'));
+            }
+        }
+        catch(Exception $e)
+        {
+            return Response::json(array('result'=>'Failed', 'message'=>$e));
+        }
+    }
+
+    public function AddCategoryLevel($id){
+
+        try{
+            $categoryMenu = new ProductCategoryLevel();
+            $categoryMenu->category_id = $id;
+            $categoryMenu->save();
+            return Response::json(array('result'=>'Success', 'message'=>'New Category Menu has been added'));
+        }
+        catch(Exception $e)
+        {
+            return Response::json(array('result'=>'Failed', 'message'=>$e));
+        }
     }
 
     protected function LoadCategorySelection(){

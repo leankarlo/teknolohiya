@@ -7,6 +7,7 @@
 @section('head')
 	<!-- BEGIN PAGE STYLES -->
 	<link href="{{ asset('packages/select2/select2.css')}}" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('packages/jquery-nestable/jquery.nestable.css')}}"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('packages/dropzone/css/dropzone.css')}}"/>
 	<!-- END PAGE STYLES -->
@@ -31,7 +32,6 @@
 						<thead>
 							<tr>
 								<th class="table-checkbox">
-									<input type="checkbox" class="group-checkable" data-set="#Table .checkboxes"/>
 								</th>
 								<th width="20%">Image</th>
 								<th width="35%">Product Name</th>
@@ -57,13 +57,13 @@
 							</a>
 						</li>
 						<li>
-							<a data-toggle="modal" href="#" id="UnPublishProduct" onclick="UnPublishProduct()">
+							<a data-toggle="modal" href="#" id="PublishProduct" onclick="PublishProduct()">
 								<i class="icon-book-open"></i>
 								Publish Selected
 							</a>
 						</li>
 						<li>
-							<a data-toggle="modal" href="#" id="AddProduct" onclick="DisableSubmitToEditButton()">
+							<a data-toggle="modal" href="#" id="UnPublishProduct" onclick="UnPublishProduct()">
 								<i class="icon-ban"></i>
 								Unpublish Selected
 							</a>
@@ -77,7 +77,7 @@
 						<li>
 							<a data-toggle="modal" href="#categoryLevelManagement" id="CategoryLevelManagement">
 								<i class="icon-list"></i>
-								Category Level Management
+								Category Management
 							</a>
 						</li>
 			
@@ -205,8 +205,10 @@
 	<script type="text/javascript" src="{{ asset('packages/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 	<script type="text/javascript" src="{{ asset('packages/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 	<script src="{{ asset('packages/jquery-validation/js/jquery.validate.js') }}" type="text/javascript"></script>
-
+<script type="text/javascript" src="{{ URL::to('packages/jquery-nestable/jquery.nestable.js')}}"></script>
+	<script type="text/javascript" src="{{ URL::to('packages/nested-sortable/jquery.mjs.nestedSortable.js')}}"></script>
 	<script type="text/javascript" src="{{ asset('packages/dropzone/dropzone.js')}}"></script>
+
 	<script src="{{ asset('js/admin/pages/products/manage.js')}}"></script>
 	<script src="{{ asset('js/admin/pages/products/ProductCreate.js')}}"></script>
 	<script src="{{ asset('js/admin/pages/products/categorymanagement.js')}}"></script>

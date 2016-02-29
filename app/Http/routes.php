@@ -308,7 +308,9 @@
 					Route::group(array('prefix'=>'category'), function(){
 	
 						Route::get('/get&id={id}','Canvas\ProductController@GetProductCategory');
-	
+						
+						Route::get('/level/getall','Canvas\ProductController@GetProductCategoryLevel');
+
 						Route::get('/getall','Canvas\ProductController@LoadCategorySelection');
 	
 						Route::get('/delete&id={id}','Canvas\ProductController@DeleteProductCategory');
@@ -317,6 +319,12 @@
 	
 						Route::get('/create_new&name={name}','Canvas\ProductController@CreateNewCategory');
 	
+						Route::post('/level/update', 'Canvas\ProductController@UpdateLevel');
+
+						Route::get('/level/add&id={id}', 'Canvas\ProductController@AddCategoryLevel');
+
+						Route::get('/level/delete&id={id}', 'Canvas\ProductController@DeleteCategoryLevel');
+					
 					});
 				/** END Product Category **/
 

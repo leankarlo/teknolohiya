@@ -123,7 +123,7 @@ var ProductCreate = function () {
                             options += "<option value='" + item.id + "'>" + item.name + "</option>";
                         });
                         $("#product_category").html(options);
-    
+                        $("#product_category_2").html(options);
                     }
                     else{
                         toastr.error(result.message, result.result);
@@ -315,8 +315,7 @@ $(document).ready(function() {
                 {
                     sortable: false,
                     "render": function ( data, type, result, meta ) {
-                        var content = '<a onclick="alert('+result.id+',\' Are you sure you want to REMOVE this Category ( '+result.product_category.name+' ) ? \', \'deleteItem\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>'
-                                    ;
+                        var content = '<a onclick="alert('+result.id+',\' Are you sure you want to REMOVE this Category ( '+result.product_category.name+' ) ? \', \'deleteItem\' )" data-toggle="modal" href="#messageAlert" class="btn btn-danger deleteBtn" >Delete</a>';
                         return content;
                     }
                 },
